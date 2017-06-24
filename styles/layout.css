@@ -1,0 +1,51 @@
+html {
+	overflow-y:hidden;
+} 
+
+body {
+	margin:0; 
+	padding:0; 
+	font-size:13pt; 
+	font-family:Georgia, Times, serif; 
+	color:#eee; 
+	background-color:#423222;
+	overflow:hidden;
+}
+
+body>div {
+	height: 100vh;
+	overflow:hidden;
+}
+
+#box_carousel {
+	background-color: #a7acb7;
+	color: #222;
+	width: 100%;
+	height: 75%;
+	overflow: hidden;
+}
+#box_slider {
+	background-color: #878a96;
+	color: #111;
+	width: 100%;
+	height: 25%;
+	overflow: hidden;
+}
+.carousel {
+	height: 100%;
+	float: left;
+	transition: all .5s ease-out;
+}
+.carousel_hidden {
+	width: 0%;
+	background-color: #fff;
+	color: #fff;
+}
+.carousel_minimized {
+	width: 10%;
+	background-color: #eee;
+	color: #000;
+}
+.carousel_visible {
+	width: 80%;
+}
