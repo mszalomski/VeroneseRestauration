@@ -1,0 +1,63 @@
+[
+  {
+      "id": "querschliff",
+      "title" : "Querschliff",
+      "start_time" : "2016-01-01",
+      "end_time" : "2016-01-30",
+      "content" : "querschliff.html",
+      "images" : [
+      "bild1.jpg",
+      "bild2.jpg",
+      "bild3.jpg"
+      ]
+  },
+  {
+      "id": "firnissabnahme",
+      "title" : "Firnissabnahme",
+      "start_time" : "2016-01-20",
+      "end_time" : "2016-03-15",
+      "content" : "firnissabnahme.html",
+      "images" : [
+      "bild1.jpg",
+      "bild2.jpg",
+      "bild3.jpg"
+      ]
+  },
+  {
+      "id": "infrarot",
+      "title" : "Infrarotreflektorgrafie",
+      "start_time" : "2016-04-01",
+      "end_time" : "2016-08-15",
+      "content" : "infrarot.html",
+      "images" : [
+      "bild1.jpg",
+      "bild2.jpg",
+      "bild3.jpg"
+      ]
+  },
+  {
+      "id": "roentgen",
+      "title" : "Digitale Röntgentechnik",
+      "start_time" : "2017-02-01",
+      "end_time" : "2017-04-25",
+      "content" : "roentgen.html",
+      "images" : [
+      "bild1.jpg",
+      "bild2.jpg",
+      "bild3.jpg"
+      ]
+  },
+  {
+      "id": "retusche",
+      "title" : "Retusche von Fehlstellen",
+      "start_time" : "2017-04-26",
+      "end_time" : "2017-07-25",
+      "content" : "retusche.html",
+      "images" : [
+      "bild1.jpg",
+      "bild2.jpg",
+      "bild3.jpg"
+      ]
+  }
+]
+
