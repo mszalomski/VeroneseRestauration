@@ -77,3 +77,34 @@ $(document).keydown(function(e) {
 	redrawCarousel();
 	e.preventDefault(); // prevent the default action (scroll / move caret)
 });
+
+$("#slider").bind("valuesChanging", function(e, data){
+	var activeValues = [];
+	json.forEach(
+		function(value, i, array){
+				
+					
+			var dFrom = value.start_time.split("-");
+			var dTo = value.end_time.split("-");
+					
+			var dateFrom = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
+			var dateTo = new Date(dTo[0], parseInt(dTo[1])-1, dTo[2]);
+					
+			var checkMin = data.values.min;
+			var checkMax = data.values.max;
+			
+			
+			// Check if date is in the time period
+			if(checkMax >= dateFrom && checkMax <= dateTo || checkMin >= dateFrom && checkMin <= dateTo){
+				if(activeValues.indexOf(value) === -1){
+					activeValues.push(value);
+				}				
+			} else {
+				if(activeValues.indexOf(value) !== -1){
+					activeValues.splice(activeValues.indexOf(value), 1);
+				}
+			}
+		}
+	);
+	console.log(activeValues);
+});
