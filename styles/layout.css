@@ -69,6 +69,10 @@ body>div {
 }
 .carousel_title_hidden {
 	visibility: hidden;
+	margin: 0;
+	height: 0;
+	width: 0;
+	overflow: hidden;
 }
 .carousel_content_active {
 	width: 100%;
@@ -90,4 +94,11 @@ body>div {
 	float: right;
 	width: 20%;
 	height: 100%;
+	max-height: 100%;
+	overflow: auto;
+}
+.thumbnail {
+	margin-left: 2em;
+	margin-top: 2em;
+	width: 80%;
 }

@@ -25,7 +25,7 @@ function redrawCarousel() {
 		switch(state) {
 			case SLIDESTATES.ACTIVE:
 				containerCSS = "carousel_visible";
-				childTitleCSS = "carousel_title_active";
+				childTitleCSS = "carousel_title_hidden";
 				childContentCSS = "carousel_content_active";
 				break;
 			case SLIDESTATES.MINIMIZED:
