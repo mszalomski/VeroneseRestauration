@@ -42,10 +42,52 @@ body>div {
 	color: #fff;
 }
 .carousel_minimized {
-	width: 10%;
+	width: 5%;
 	background-color: #eee;
 	color: #000;
 }
 .carousel_visible {
-	width: 80%;
+	width: 90%;
+}
+.carousel_title_active {
+	font-size: 20pt;
+	font-weight: bold;
+	padding-left: 2em;
+	/*transition: all .5s ease-out;*/
+}
+.carousel_title_min {
+	font-size: 20pt;
+	font-weight: bold;
+	position: relative;
+	top: 90%;
+	left: 35%;
+	width: 60vh;
+	transform: translateY(-50%) rotate(-90deg);
+	transform-origin: left top 0;
+	/*transition: all .5s ease-out;*/
+	text-align: center;
+}
+.carousel_title_hidden {
+	visibility: hidden;
+}
+.carousel_content_active {
+	width: 100%;
+	height: 100%;
+}
+.carousel_content_hidden {
+	visibility: hidden;
+}
+#info_content {
+	font-size: 14pt;
+	padding-top: 0pt;
+	padding-left: 2em;
+	padding-right: 2.5em;
+	float: left;
+	width: 72%;
+	height: 100%;
+}
+#picture_slider {
+	float: right;
+	width: 20%;
+	height: 100%;
 }
