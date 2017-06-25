@@ -1,4 +1,4 @@
-html {
+﻿html {
 	overflow-y:hidden;
 } 
 
@@ -77,7 +77,7 @@ body>div {
 .carousel_content_hidden {
 	visibility: hidden;
 }
-#info_content {
+.info_content {
 	font-size: 14pt;
 	padding-top: 0pt;
 	padding-left: 2em;
@@ -86,7 +86,7 @@ body>div {
 	width: 72%;
 	height: 100%;
 }
-#picture_slider {
+.picture_slider {
 	float: right;
 	width: 20%;
 	height: 100%;
