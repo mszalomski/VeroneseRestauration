@@ -3,67 +3,26 @@ $.getJSON("data.json", function(json) {
 	
 	returnJSONdata(json);
 	
-	$("#querschliff_time").dateRangeSlider({
-		enabled: false,
-		arrows: false,
-		bounds:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2017, 11, 31)
-		},
-		defaultValues:{
-			min: new Date(json[0].start_time.split("-")[0], parseInt(json[0].start_time.split("-")[1]) - 1, json[0].start_time.split("-")[2]),
-			max: new Date(json[0].end_time.split("-")[0], parseInt(json[0].end_time.split("-")[1]) - 1, json[0].end_time.split("-")[2])
-		}
-	});
-	$("#firnissabnahme_time").dateRangeSlider({
-		enabled: false,
-		arrows: false,
-		bounds:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2017, 11, 31)
-		},
-		defaultValues:{
-			min: new Date(json[1].start_time.split("-")[0], parseInt(json[1].start_time.split("-")[1]) - 1, json[1].start_time.split("-")[2]),
-			max: new Date(json[1].end_time.split("-")[0], parseInt(json[1].end_time.split("-")[1]) - 1, json[1].end_time.split("-")[2])
-		}
-	});
-	$("#infrarot_time").dateRangeSlider({
-		enabled: false,
-		arrows: false,
-		bounds:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2017, 11, 31)
-		},
-		defaultValues:{
-			min: new Date(json[2].start_time.split("-")[0], parseInt(json[2].start_time.split("-")[1]) - 1, json[2].start_time.split("-")[2]),
-			max: new Date(json[2].end_time.split("-")[0], parseInt(json[2].end_time.split("-")[1]) - 1, json[2].end_time.split("-")[2])
-		}
-	});
-	$("#roentgen_time").dateRangeSlider({
-		enabled: false,
-		arrows: false,
-		bounds:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2017, 11, 31)
-		},
-		defaultValues:{
-			min: new Date(json[3].start_time.split("-")[0], parseInt(json[3].start_time.split("-")[1]) - 1, json[3].start_time.split("-")[2]),
-			max: new Date(json[3].end_time.split("-")[0], parseInt(json[3].end_time.split("-")[1]) - 1, json[3].end_time.split("-")[2])
-		}
-	});
-	$("#retusche_time").dateRangeSlider({
-		enabled: false,
-		arrows: false,
-		bounds:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2017, 11, 31)
-		},
-		defaultValues:{
-			min: new Date(json[4].start_time.split("-")[0], parseInt(json[4].start_time.split("-")[1]) - 1, json[4].start_time.split("-")[2]),
-			max: new Date(json[4].end_time.split("-")[0], parseInt(json[4].end_time.split("-")[1]) - 1, json[4].end_time.split("-")[2])
-		}
-	});
 	
+	// Insert Timer Divs
+	for(var i = 0; i < json.length; i++) {
+		$("#box_slider").append('<div id="timer_' +i +'" class="timer"></div>');
+		
+		$('#timer_' +i).dateRangeSlider({
+			enabled: false,
+			arrows: false,
+			bounds:{
+				min: new Date(2016, 0, 1),
+				max: new Date(2017, 11, 31)
+			},
+			defaultValues:{
+				min: new Date(json[i].start_time.split("-")[0], parseInt(json[i].start_time.split("-")[1]) - 1, json[i].start_time.split("-")[2]),
+				max: new Date(json[i].end_time.split("-")[0], parseInt(json[i].end_time.split("-")[1]) - 1, json[i].end_time.split("-")[2])
+			}
+		});
+		
+		$('#timer_' +i +' .ui-rangeSlider-bar').append(json[i].title_short);
+	}
 	
 	// SLIDER
 	$("#slider").dateRangeSlider(

@@ -167,3 +167,11 @@ p {
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+
+.timer .ui-rangeSlider-bar {
+	text-align: center;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #fff;
+	padding-top: 7px;
+}
