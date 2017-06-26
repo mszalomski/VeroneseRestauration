@@ -163,25 +163,17 @@ function nextSlide() {
 	if (currentSlide < maxSlides) {
 		currentSlide++;
 		redrawCarousel();
-		
-		setTimeSlider(getID(this));
+		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
 }
 function prevSlide() {
 	if (currentSlide > 1) {
 		currentSlide--;
 		redrawCarousel();
-		
-		setTimeSlider(getID(this));
+		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
 }
 
-function getID(node){
-	var id = $(node).attr("id");
-	id = id.replace("Slide0", "");
-	
-	return parseInt(id);
-}
 
 function updateCarousel(activeSlides) {
 	//simple version, show the first item in the list. If List is empty, do not change anything
@@ -223,5 +215,6 @@ $(document).keydown(function(e) {
 		default: return; // exit this handler for other keys
 	}
 	redrawCarousel();
+	setTimeSlider(jsonContent[currentSlide-1].start_time);
 	e.preventDefault(); // prevent the default action (scroll / move caret)
 });

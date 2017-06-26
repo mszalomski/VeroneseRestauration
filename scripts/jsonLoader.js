@@ -79,13 +79,11 @@ $.getJSON("data.json", function(json) {
 // END JSON DATA
 });
 
-function setTimeSlider(id){
-	$.getJSON("data.json", function(json) {
-		var dFrom = json[id-1].start_time.split("-");
-		var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
-		var dateEnd = dateBegin.addDays(28);
-		$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
-	});
+function setTimeSlider(startTime){
+	var dFrom = startTime.split("-");
+	var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
+	var dateEnd = dateBegin.addDays(28);
+	$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
 }
 
 Date.prototype.addDays = function(days) {
