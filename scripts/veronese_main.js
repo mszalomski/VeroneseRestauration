@@ -163,13 +163,24 @@ function nextSlide() {
 	if (currentSlide < maxSlides) {
 		currentSlide++;
 		redrawCarousel();
+		
+		setTimeSlider(getID(this));
 	}
 }
 function prevSlide() {
 	if (currentSlide > 1) {
 		currentSlide--;
 		redrawCarousel();
+		
+		setTimeSlider(getID(this));
 	}
+}
+
+function getID(node){
+	var id = $(node).attr("id");
+	id = id.replace("Slide0", "");
+	
+	return parseInt(id);
 }
 
 function updateCarousel(activeSlides) {
