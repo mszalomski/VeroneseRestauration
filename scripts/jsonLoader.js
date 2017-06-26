@@ -34,7 +34,7 @@ $.getJSON("data.json", function(json) {
 		},
 		defaultValues:{
 			min: new Date(2016, 0, 1),
-			max: new Date(2016, 1, 8)
+			max: new Date(2016, 0, 29)
 		},
 		formatter:function(val){
 			var days = val.getDate(),
@@ -78,3 +78,18 @@ $.getJSON("data.json", function(json) {
 	
 // END JSON DATA
 });
+
+function setTimeSlider(id){
+	$.getJSON("data.json", function(json) {
+		var dFrom = json[id-1].start_time.split("-");
+		var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
+		var dateEnd = dateBegin.addDays(28);
+		$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
+	});
+}
+
+Date.prototype.addDays = function(days) {
+	var dat = new Date(this.valueOf());
+	dat.setDate(dat.getDate() + days);
+	return dat;
+}
