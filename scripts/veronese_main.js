@@ -95,6 +95,8 @@ pictureDiv					<div class="picture_slider">
 	for (var i=0; i<dataobject.images.length; i++) {
 		var imageElement = document.createElement("img");
 		imageElement.src = "images/" + dataobject.images[i];
+		imageElement.onclick = openSlideshow;
+		imageElement.alt = dataobject.title;
 		imageElement.className = "thumbnail";
 		pictureDiv.appendChild(imageElement);
 	}
@@ -177,6 +179,12 @@ function updateCarousel(activeSlides) {
 	}
 }
 
+function openSlideshow() {
+	var number = ("0" + currentSlide).slice(-2); //padding of a leading zero
+	var slide = document.getElementById("Slide"+number);
+	var picBox = slide.children[1].children[1].children[0];
+	picBox.className = "picture_slideshow";
+}
 
 $(document).keydown(function(e) {
 	//this function rotates the carousel
