@@ -6,9 +6,9 @@
       "end_time" : "2016-01-30",
       "content" : "querschliff.html",
       "images" : [
-      "bild1.jpg",
-      "bild2.jpg",
-      "bild3.jpg"
+      "quer_blau.jpg",
+      "quer_gruen.jpg",
+      "quer_rot.jpg"
       ]
   },
   {
@@ -18,9 +18,9 @@
       "end_time" : "2016-03-15",
       "content" : "firnisabnahme.html",
       "images" : [
-      "bild1.jpg",
-      "bild2.jpg",
-      "bild3.jpg"
+      "firnis_detail.jpg",
+      "firnis_watte.jpg",
+      "firnis_koblenz.jpg"
       ]
   },
   {
@@ -30,9 +30,9 @@
       "end_time" : "2016-08-15",
       "content" : "infrarot.html",
       "images" : [
-      "bild1.jpg",
-      "bild2.jpg",
-      "bild3.jpg"
+      "infrarot_bruder.jpg",
+      "infrarot_kind.jpg",
+      "infrarot_hamburg.jpg"
       ]
   },
   {
@@ -42,9 +42,9 @@
       "end_time" : "2017-04-25",
       "content" : "roentgen.html",
       "images" : [
-      "bild1.jpg",
-      "bild2.jpg",
-      "bild3.jpg"
+      "roentgen_veronese.jpg",
+      "roentgen_process.jpg",
+      "roentgen_process2.jpg"
       ]
   },
   {
@@ -54,9 +54,13 @@
       "end_time" : "2017-07-25",
       "content" : "retusche.html",
       "images" : [
-      "bild1.jpg",
-      "bild2.jpg",
-      "bild3.jpg"
+      "retusche_1pre.jpg",
+	  "retusche_1post.jpg",
+	  "retusche_2pre.jpg",
+	  "retusche_2post.jpg",
+	  "retusche_3pre.jpg",
+	  "retusche_3post.jpg",
+	  "retusche_process.jpg"
       ]
   }
 ]

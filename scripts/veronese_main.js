@@ -56,12 +56,14 @@ contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing e
 							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos </p>
 							</div>
 						</div>
-pictureDiv				<div class="picture_slider">
-							<img src="images/mockup1.jpg" class="thumbnail" />
-							<img src="images/mockup1.jpg" class="thumbnail" />
-							<img src="images/mockup1.jpg" class="thumbnail" />
-							<img src="images/mockup1.jpg" class="thumbnail" />
-							<img src="images/mockup1.jpg" class="thumbnail" />
+pictureWrapper			<div class="picture_wrapper">
+pictureDiv					<div class="picture_slider">
+								<img src="images/mockup1.jpg" class="thumbnail" />
+								<img src="images/mockup1.jpg" class="thumbnail" />
+								<img src="images/mockup1.jpg" class="thumbnail" />
+								<img src="images/mockup1.jpg" class="thumbnail" />
+								<img src="images/mockup1.jpg" class="thumbnail" />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,7 +88,9 @@ pictureDiv				<div class="picture_slider">
 		async: false
 	}).responseText;
 	
+	var pictureWrapper = document.createElement("div");
 	var pictureDiv = document.createElement("div");
+	pictureWrapper.className = "picture_wrapper";
 	pictureDiv.className = "picture_slider";
 	for (var i=0; i<dataobject.images.length; i++) {
 		var imageElement = document.createElement("img");
@@ -103,7 +107,8 @@ pictureDiv				<div class="picture_slider">
 	contentInfoDiv.appendChild(contentInfoTitle);
 	contentInfoDiv.appendChild(contentInfoContent);
 	
-	contentDiv.appendChild(pictureDiv);
+	contentDiv.appendChild(pictureWrapper);
+	pictureWrapper.appendChild(pictureDiv);
 }
 
 
