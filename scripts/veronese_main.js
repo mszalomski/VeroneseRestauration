@@ -10,27 +10,34 @@ var SLIDESTATES = {
 var jsonContent = null;
 
 function init() {
-	var carousel = document.getElementById("box_carousel");
 	if (!initialized) {
 		//wait until json loader is ready
 		setTimeout(function() {
-			if (!(jsonContent instanceof Array)) {
-				alert("missing JSON data");
-				return;
-			}
-			maxSlides = jsonContent.length; //start numbering of slides beginning from 1
-			currentSlide = 1;
-			for (var i=1; i<=maxSlides; i++) {
-				var dataobject = null;
-				for (var j=0; j<maxSlides; j++) {
-					//retrieve element from json array
-					if (jsonContent[j].id == i) dataobject = jsonContent[j];
-				}
-				if (dataobject != null) createHTMLslide(carousel, dataobject);
-			}
-			redrawCarousel();
+			prepareCarousel();
 		}, 500);
+	} else {
+		prepareCarousel();
 	}
+}
+
+function prepareCarousel() {
+	if (!(jsonContent instanceof Array)) {
+		alert("missing JSON data");
+		console.log("JSON CANNOT BE LOADED, XMLhttp request blocked?");
+		return;
+	}
+	var carousel = document.getElementById("box_carousel");
+	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
+	currentSlide = 1;
+	for (var i=1; i<=maxSlides; i++) {
+		var dataobject = null;
+		for (var j=0; j<maxSlides; j++) {
+			//retrieve element from json array
+			if (jsonContent[j].id == i) dataobject = jsonContent[j];
+		}
+		if (dataobject != null) createHTMLslide(carousel, dataobject);
+	}
+	redrawCarousel();
 }
 
 function returnJSONdata(data) {
