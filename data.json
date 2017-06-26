@@ -2,8 +2,9 @@
   {
       "id": 1,
       "title" : "Querschliff",
+	  "title_short" : "Querschliff",
       "start_time" : "2016-01-01",
-      "end_time" : "2016-01-30",
+      "end_time" : "2016-02-25",
       "content" : "querschliff.html",
       "images" : [
       "quer_blau.jpg",
@@ -14,8 +15,9 @@
   {
       "id": 2,
       "title" : "Firnisabnahme",
+	  "title_short" : "Firnisabnahme",
       "start_time" : "2016-01-20",
-      "end_time" : "2016-03-15",
+      "end_time" : "2016-03-28",
       "content" : "firnisabnahme.html",
       "images" : [
       "firnis_detail.jpg",
@@ -26,6 +28,7 @@
   {
       "id": 3,
       "title" : "Infrarotreflektografie",
+	  "title_short" : "Infrarot",
       "start_time" : "2016-04-01",
       "end_time" : "2016-08-15",
       "content" : "infrarot.html",
@@ -38,6 +41,7 @@
   {
       "id": 4,
       "title" : "Digitale Röntgentechnik",
+	  "title_short" : "Röntgen",
       "start_time" : "2017-02-01",
       "end_time" : "2017-04-25",
       "content" : "roentgen.html",
@@ -50,6 +54,7 @@
   {
       "id": 5,
       "title" : "Retusche von Fehlstellen",
+	  "title_short" : "Retusche",
       "start_time" : "2017-04-26",
       "end_time" : "2017-07-25",
       "content" : "retusche.html",
