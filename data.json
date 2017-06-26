@@ -13,10 +13,10 @@
   },
   {
       "id": 2,
-      "title" : "Firnissabnahme",
+      "title" : "Firnisabnahme",
       "start_time" : "2016-01-20",
       "end_time" : "2016-03-15",
-      "content" : "firnissabnahme.html",
+      "content" : "firnisabnahme.html",
       "images" : [
       "bild1.jpg",
       "bild2.jpg",
