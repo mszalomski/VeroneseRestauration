@@ -102,8 +102,8 @@ p {
 	overflow: hidden;
 	width: 38%;
 	float: right;
-	transition: all .5s ease-out;
 }
+
 .picture_slider {
 	width: 110%;
 	height: 100%;
@@ -111,17 +111,20 @@ p {
 	overflow-y: auto;
 	overflow-x: hidden;
 	background: linear-gradient(to right, transparent, #4c4f54);
+	transition: all .5s ease-out;
 }
 .picture_slideshow {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background: #000;
+	background-color: #423222;
+	text-align: center;
 	opacity: 1;
 	z-index: 99;
+	transition: all .5s ease-out;
 }
 .thumbnail {
 	margin-left: 2em;
@@ -129,7 +132,29 @@ p {
 	width: 80%;
 	cursor: pointer;
 	opacity: 1;
+	transition: all .5s ease-out;
 }
+.image_active {
+	vertical-align: center;
+	max-width: 80%;
+	max-height: 70%;
+	transition: all .5s ease-out;
+}
+.image_left {
+	vertical-align: center;
+	max-width: 80%;
+	max-height: 70%;
+	right: 0;
+	transition: all .5s ease-out;
+}
+.image_right{
+	vertical-align: center;
+	max-width: 80%;
+	max-height: 70%;
+	left: 0;
+	transition: all .5s ease-out;
+}
+
 
 /*---------------------------
 		SLIDER
