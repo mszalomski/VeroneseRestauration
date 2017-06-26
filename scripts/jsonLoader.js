@@ -88,13 +88,10 @@ $.getJSON("data.json", function(json) {
 		}
 	});
 	
-
 	$("#slider").bind("valuesChanging", function(e, data){
 		var activeValues = [];
 		json.forEach(
 			function(value, i, array){
-			
-				
 				var dFrom = value.start_time.split("-");
 				var dTo = value.end_time.split("-");
 				
@@ -104,20 +101,19 @@ $.getJSON("data.json", function(json) {
 				var checkMin = data.values.min;
 				var checkMax = data.values.max;
 				
-				
 				// Check if date is in the time period
 				if(checkMax >= dateFrom && checkMax <= dateTo || checkMin >= dateFrom && checkMin <= dateTo){
-					if(activeValues.indexOf(value) === -1){
-						activeValues.push(value);
-					}				
+					if(activeValues.indexOf(value.id) === -1){
+						activeValues.push(value.id);
+					}
 				} else {
-					if(activeValues.indexOf(value) !== -1){
-						activeValues.splice(activeValues.indexOf(value), 1);
+					if(activeValues.indexOf(value.id) !== -1){
+						activeValues.splice(activeValues.indexOf(value.id), 1);
 					}
 				}
 			}
 		);
-		console.log(activeValues);
+		updateCarousel(activeValues);
 	});
 	// END SLIDER
 	

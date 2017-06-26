@@ -1,5 +1,6 @@
 var currentSlide = 3;
 var maxSlides = 5;
+var initialized = false;
 var SLIDESTATES = {
 	NULL :		0 ,
 	ACTIVE : 	1,
@@ -8,29 +9,33 @@ var SLIDESTATES = {
 };
 var jsonContent = null;
 
-
-
 function init() {
 	var carousel = document.getElementById("box_carousel");
-	if (!(jsonContent instanceof Array)) {
-		alert("missing JSON data");
-		return;
+	if (!initialized) {
+		//wait until json loader is ready
+		setTimeout(function() {
+			if (!(jsonContent instanceof Array)) {
+				alert("missing JSON data");
+				return;
+			}
+			maxSlides = jsonContent.length; //start numbering of slides beginning from 1
+			currentSlide = 1;
+			for (var i=1; i<=maxSlides; i++) {
+				var dataobject = null;
+				for (var j=0; j<maxSlides; j++) {
+					//retrieve element from json array
+					if (jsonContent[j].id == i) dataobject = jsonContent[j];
+				}
+				if (dataobject != null) createHTMLslide(carousel, dataobject);
+			}
+			redrawCarousel();
+		}, 500);
 	}
-	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
-	currentSlide = 1;
-	for (var i=1; i<=maxSlides; i++) {
-		var dataobject = null;
-		for (var j=0; j<maxSlides; j++) {
-			//retrieve element from json array
-			if (jsonContent[j].id == i) dataobject = jsonContent[j];
-		}
-		if (dataobject != null) createHTMLslide(carousel, dataobject);
-	}
-	redrawCarousel();
 }
 
 function returnJSONdata(data) {
 	jsonContent = data;
+	initialized = true;
 }
 
 function createHTMLslide(carousel, dataobject) {
@@ -149,6 +154,17 @@ function prevSlide() {
 	}
 }
 
+function updateCarousel(activeSlides) {
+	//simple version, show the first item in the list. If List is empty, do not change anything
+	if (!initialized) return;
+	if (!(activeSlides instanceof Array)) return;
+	if (activeSlides.length == 0) return;
+	if (currentSlide != activeSlides[0]) {
+		currentSlide = activeSlides[0];
+		redrawCarousel();
+	}
+}
+
 
 $(document).keydown(function(e) {
 	//this function rotates the carousel
@@ -163,35 +179,4 @@ $(document).keydown(function(e) {
 	}
 	redrawCarousel();
 	e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-
-$("#slider").bind("valuesChanging", function(e, data){
-	var activeValues = [];
-	json.forEach(
-		function(value, i, array){
-				
-					
-			var dFrom = value.start_time.split("-");
-			var dTo = value.end_time.split("-");
-					
-			var dateFrom = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
-			var dateTo = new Date(dTo[0], parseInt(dTo[1])-1, dTo[2]);
-					
-			var checkMin = data.values.min;
-			var checkMax = data.values.max;
-			
-			
-			// Check if date is in the time period
-			if(checkMax >= dateFrom && checkMax <= dateTo || checkMin >= dateFrom && checkMin <= dateTo){
-				if(activeValues.indexOf(value) === -1){
-					activeValues.push(value);
-				}				
-			} else {
-				if(activeValues.indexOf(value) !== -1){
-					activeValues.splice(activeValues.indexOf(value), 1);
-				}
-			}
-		}
-	);
-	console.log(activeValues);
 });
