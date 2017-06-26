@@ -6,6 +6,28 @@ var SLIDESTATES = {
 	MINIMIZED :	2,
 	HIDDEN : 	3
 };
+var jsonContent = null;
+
+
+
+function init() {
+	var carousel = document.getElementById("box_carousel");
+	if (!(data instanceof Array)) {
+		alert("missing JSON data");
+		return;
+	}
+	maxSlides = data.length;
+	currentSlide = 1;
+	for (var i=1; i<=maxSlides; i++) {
+		
+	}
+	redrawCarousel();
+}
+
+function returnJSONdata(data) {
+	jsonContent = data;
+}
+
 
 function redrawCarousel() {
 	for (var i=1; i <= maxSlides; i++) {
@@ -40,7 +62,6 @@ function redrawCarousel() {
 				childContentCSS = "carousel_content_hidden";
 				break;
 		}
-		console.log(slide.firstChild.className);
 		containerCSS += " carousel";
 		slide.className = containerCSS;
 		slide.onclick = onClickAction;
