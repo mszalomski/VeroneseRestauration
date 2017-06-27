@@ -11,6 +11,7 @@ var jsonContent = null;
 var currentImage = 0;
 var maxImages = 1;
 var slideshowContainer = null;
+var slideShowActive = false;
 
 function init() {
 	if (!initialized) {
@@ -98,7 +99,7 @@ pictureDiv					<div class="picture_slider">
 	for (var i=0; i<dataobject.images.length; i++) {
 		var imageElement = document.createElement("img");
 		imageElement.src = "images/" + dataobject.images[i];
-		imageElement.onclick = function() { openSlideshow(i);};
+		imageElement.onclick = function() { openSlideshow(this);};
 		imageElement.id = "img"+("0" + i).slice(-2);
 		imageElement.alt = dataobject.title;
 		imageElement.className = "thumbnail";
@@ -186,35 +187,74 @@ function updateCarousel(activeSlides) {
 	}
 }
 
-function openSlideshow(id) {
+function openSlideshow(img) {
+	slideShowActive = true;
 	var number = ("0" + currentSlide).slice(-2); //padding of a leading zero
 	var slide = document.getElementById("Slide"+number);
 	slideshowContainer = slide.children[1].children[1].children[0];
 	slideshowContainer.className = "picture_slideshow";
-	currentImage = id;
+	currentImage = parseInt(img.id.replace("img",""));
 	maxImages = slideshowContainer.children.length;
+	
+	var nextArrow = document.createElement("a");
+	nextArrow.href = "";
+	nextArrow.className = "btnNext";
+	nextArrow.textContent = ">";
+	nextArrow.onclick = nextImage;
+	//document.body.appendChild(nextArrow);
+	
 	redrawSlideshow();
 }
 
-function redrawSlideshow() {
+function closeSlideshow() {
+	slideShowActive = false;
+	slideshowContainer.className = "picture_slider";
 	for (var i = 0; i<maxImages; i++) {
 		var imageElement = slideshowContainer.children[i];
-		
+		imageElement.className = "thumbnail";
 	}
+}
+
+function redrawSlideshow() {
+	if (!slideShowActive) return;
+	for (var i = 0; i<maxImages; i++) {
+		var imageElement = slideshowContainer.children[i];
+		if (i == currentImage)	imageElement.className = "image_active";
+		if (i < currentImage) 	imageElement.className = "image_left";
+		if (i > currentImage) 	imageElement.className = "image_right";
+	}
+}
+
+function nextImage() {
+	currentImage = (currentImage < (maxImages-1)) ? currentImage+1 : 0;
+	redrawSlideshow();
+}
+function prevImage() {
+	currentImage = (currentImage > 0) ? currentImage-1 : maxImages-1;
+	redrawSlideshow();
 }
 
 $(document).keydown(function(e) {
 	//this function rotates the carousel
 	switch(e.which) {
+		case 27: //esc
+			if (slideShowActive) closeSlideshow();
+			break;
 		case 37: // left
-			if (currentSlide > 1) currentSlide--;
+			if (slideShowActive) {
+				prevImage();
+			} else {
+				prevSlide();
+			}
 		break;
 		case 39: // right
-			if (currentSlide < maxSlides) currentSlide++;
+			if (slideShowActive) {
+				nextImage()
+			} else {
+				nextSlide()
+			}
 		break;
 		default: return; // exit this handler for other keys
 	}
-	redrawCarousel();
-	setTimeSlider(jsonContent[currentSlide-1].start_time);
 	e.preventDefault(); // prevent the default action (scroll / move caret)
 });
