@@ -42,6 +42,7 @@ function prepareCarousel() {
 		if (dataobject != null) createHTMLslide(carousel, dataobject);
 	}
 	redrawCarousel();
+	redrawSlideshow();
 }
 
 function returnJSONdata(data) {
@@ -54,12 +55,7 @@ function createHTMLslide(carousel, dataobject) {
 slideContainer	<div id="Slide03" class="carousel carousel_visible">
 titleDiv			<div class="carousel_title_active"><p>Ich bin ein Titel</p></div>
 contentDiv			<div class="carousel_content_active">
-contentInfoDiv			<div class="info_content">
-contentInfoTitle			<h1>Ich bin ein Titel</h1>
-contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos </p>
-							</div>
-						</div>
+contentInfoTitle		<h1>Ich bin ein Titel</h1>
 pictureWrapper			<div class="picture_wrapper">
 pictureDiv					<div class="picture_slider">
 								<img src="images/mockup1.jpg" class="thumbnail" />
@@ -67,6 +63,11 @@ pictureDiv					<div class="picture_slider">
 								<img src="images/mockup1.jpg" class="thumbnail" />
 								<img src="images/mockup1.jpg" class="thumbnail" />
 								<img src="images/mockup1.jpg" class="thumbnail" />
+							</div>
+						</div>
+contentInfoDiv			<div class="info_content">
+contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos </p>
 							</div>
 						</div>
 					</div>
@@ -102,7 +103,7 @@ pictureDiv					<div class="picture_slider">
 		imageElement.onclick = function() { openSlideshow(this);};
 		imageElement.id = "img"+("0" + i).slice(-2);
 		imageElement.alt = dataobject.title;
-		imageElement.className = "thumbnail";
+		imageElement.className = "image_active";
 		pictureDiv.appendChild(imageElement);
 	}
 	
@@ -110,12 +111,11 @@ pictureDiv					<div class="picture_slider">
 	slideContainer.appendChild(titleDiv);
 	titleDiv.appendChild(titleP);
 	slideContainer.appendChild(contentDiv);
-	contentDiv.appendChild(contentInfoDiv);
-	contentInfoDiv.appendChild(contentInfoTitle);
-	contentInfoDiv.appendChild(contentInfoContent);
-	
+	contentDiv.appendChild(contentInfoTitle);
 	contentDiv.appendChild(pictureWrapper);
 	pictureWrapper.appendChild(pictureDiv);
+	contentDiv.appendChild(contentInfoDiv);
+	contentInfoDiv.appendChild(contentInfoContent);
 }
 
 
@@ -158,6 +158,14 @@ function redrawCarousel() {
 		slide.children[0].className = childTitleCSS;
 		slide.children[1].className = childContentCSS;
 	}
+	//activate Slideshow for that slide:
+	var number = ("0" + currentSlide).slice(-2); //padding of a leading zero
+	var slide = document.getElementById("Slide"+number);
+	slideshowContainer = slide.children[1].children[1].children[0];
+	currentImage = 0;
+	maxImages = slideshowContainer.children.length;
+	
+	redrawSlideshow();
 }
 
 function nextSlide() {
@@ -187,41 +195,21 @@ function updateCarousel(activeSlides) {
 	}
 }
 
-function openSlideshow(img) {
-	slideShowActive = true;
-	var number = ("0" + currentSlide).slice(-2); //padding of a leading zero
-	var slide = document.getElementById("Slide"+number);
-	slideshowContainer = slide.children[1].children[1].children[0];
-	slideshowContainer.className = "picture_slideshow";
-	currentImage = parseInt(img.id.replace("img",""));
-	maxImages = slideshowContainer.children.length;
-	
-	var nextArrow = document.createElement("a");
-	nextArrow.href = "";
-	nextArrow.className = "btnNext";
-	nextArrow.textContent = ">";
-	nextArrow.onclick = nextImage;
-	//document.body.appendChild(nextArrow);
-	
-	redrawSlideshow();
-}
-
-function closeSlideshow() {
-	slideShowActive = false;
-	slideshowContainer.className = "picture_slider";
-	for (var i = 0; i<maxImages; i++) {
-		var imageElement = slideshowContainer.children[i];
-		imageElement.className = "thumbnail";
-	}
-}
-
 function redrawSlideshow() {
-	if (!slideShowActive) return;
 	for (var i = 0; i<maxImages; i++) {
 		var imageElement = slideshowContainer.children[i];
-		if (i == currentImage)	imageElement.className = "image_active";
-		if (i < currentImage) 	imageElement.className = "image_left";
-		if (i > currentImage) 	imageElement.className = "image_right";
+		if (i == currentImage) {
+			imageElement.className = "image_active";
+			imageElement.onclick = function() { return false; };
+		}
+		if (i < currentImage) {
+			imageElement.className = "image_left";
+			imageElement.onclick = prevImage;
+		}
+		if (i > currentImage) {
+			imageElement.className = "image_right";
+			imageElement.onclick = nextImage;
+		}
 	}
 }
 
@@ -237,22 +225,11 @@ function prevImage() {
 $(document).keydown(function(e) {
 	//this function rotates the carousel
 	switch(e.which) {
-		case 27: //esc
-			if (slideShowActive) closeSlideshow();
-			break;
 		case 37: // left
-			if (slideShowActive) {
-				prevImage();
-			} else {
-				prevSlide();
-			}
+			prevSlide();
 		break;
 		case 39: // right
-			if (slideShowActive) {
-				nextImage()
-			} else {
-				nextSlide()
-			}
+			nextSlide()
 		break;
 		default: return; // exit this handler for other keys
 	}
