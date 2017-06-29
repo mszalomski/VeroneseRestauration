@@ -6,6 +6,7 @@
 		"start_time" : "2016-01-01",
 		"end_time" : "2016-02-25",
 		"content" : "querschliff.html",
+		"overview" : "",
 		"images" : [
 		"quer_blau.jpg",
 		"quer_gruen.jpg",
@@ -19,6 +20,7 @@
 		"start_time" : "2016-01-20",
 		"end_time" : "2016-03-28",
 		"content" : "firnisabnahme.html",
+		"overview" : "vorzustand.jpg",
 		"images" : [
 		"firnis_detail.jpg",
 		"firnis_watte.jpg",
@@ -32,6 +34,7 @@
 		"start_time" : "2016-04-01",
 		"end_time" : "2016-08-15",
 		"content" : "infrarot.html",
+		"overview" : "infrared.jpg",
 		"images" : [
 		"infrarot_bruder.jpg",
 		"infrarot_kind.jpg",
@@ -42,22 +45,36 @@
 		"id": 4,
 		"title" : "Digitale Röntgentechnik",
 		"title_short" : "Röntgen",
-		"start_time" : "2017-02-01",
-		"end_time" : "2017-04-25",
+		"start_time" : "2016-011-01",
+		"end_time" : "2017-01-25",
 		"content" : "roentgen.html",
+		"overview" : "roentgen.jpg",
 		"images" : [
-		"roentgen_veronese.jpg",
 		"roentgen_process.jpg",
 		"roentgen_process2.jpg"
 		]
 	},
 	{
 		"id": 5,
+		"title" : "Untersuchung unter Ultraviolett",
+		"title_short" : "Ultraviolett",
+		"start_time" : "2017-02-30",
+		"end_time" : "2017-04-25",
+		"content" : "uv.html",
+		"overview" : "ultraviolett_color.jpg",
+		"images" : [
+		"roentgen_process.jpg",
+		"roentgen_process2.jpg"
+		]
+	},
+	{
+		"id": 6,
 		"title" : "Retusche von Fehlstellen",
 		"title_short" : "Retusche",
 		"start_time" : "2017-04-26",
 		"end_time" : "2017-07-25",
 		"content" : "retusche.html",
+		"overview" : "vorzustand.jpg",
 		"images" : [
 		"retusche_1pre.jpg",
 		"retusche_1post.jpg",
