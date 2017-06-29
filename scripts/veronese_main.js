@@ -84,8 +84,7 @@ contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing e
 	slideContainer.id = "Slide" + number;
 	
 	var titleDiv = document.createElement("div");
-	var titleP = document.createElement("p");
-	titleP.textContent = dataobject.title;
+	titleDiv.textContent = dataobject.title;
 	
 	var contentDiv = document.createElement("div");
 	var contentInfoDiv = document.createElement("div");
@@ -115,7 +114,6 @@ contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing e
 	
 	carousel.appendChild(slideContainer);
 	slideContainer.appendChild(titleDiv);
-	titleDiv.appendChild(titleP);
 	slideContainer.appendChild(contentDiv);
 	contentDiv.appendChild(contentInfoTitle);
 	contentDiv.appendChild(pictureWrapper);
