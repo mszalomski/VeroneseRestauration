@@ -311,14 +311,14 @@ h1 {
 
 .timer .ui-rangeSlider-bar {
 	text-align: center;
-	font-size: 9px;
+	font-size: 11px;
 	text-transform: uppercase;
 	color: #fff;
-	padding-top: 5px;
+	padding-top: 9px;
 }
 
 .ui-rangeSlider-disabled, .ui-rangeSlider-disabled .ui-rangeSlider-innerBar, 
 .ui-rangeSlider-disabled .ui-rangeSlider-bar,
 .ui-rangeSlider-disabled .ui-rangeSlider-handle, .ui-rangeSlider-disabled .ui-rangeSlider-container{
-	height: 20px !important;
+	height: 30px !important;
 }
