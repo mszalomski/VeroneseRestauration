@@ -8,8 +8,12 @@ body {
 	font-size:13pt; 
 	font-family:Georgia, Times, serif; 
 	color:#eee; 
-	background-color:#423222;
+	background-color:#4c4f54;
 	overflow:hidden;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }
 
 body>div {
@@ -17,30 +21,32 @@ body>div {
 	overflow:hidden;
 }
 p {
-	margin-top: 8pt;
+	margin: 10pt 0;
 	text-indent: 2em;
 }
 h1 {
-	padding-top: 0.5em;
-	padding-left: 3em;
-	margin: 0;
-	height: 10%;
-	background: linear-gradient(to bottom, transparent, #4c4f54);
+	margin: 0.5em 3em;
 }
 #box_carousel {
-	background-color: #423222;
+	background: #4c4f54; /* Old browsers */
+	/*background: -moz-linear-gradient(top, #4c4f54 0%, #4c4f54 85%, #4c4f54 86%, #423222 100%); 
+	background: -webkit-linear-gradient(top, #4c4f54 0%,#4c4f54 85%,#4c4f54 86%,#423222 100%); 
+	background: linear-gradient(to bottom, #4c4f54 0%,#4c4f54 85%,#4c4f54 86%,#423222 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4f54', endColorstr='#423222',GradientType=0 ); */
 	color: #eee;
 	width: 100%;
-	height: 80%;
+	height: 83%;
 	overflow: hidden;
 }
 #box_slider {
-	background-color: #4c4f54;
 	color: #111;
 	width: 100%;
-	height: 20%;
+	height: 17%;
 	overflow: hidden;
+	background: #45484c !important;
+	border-top: 1px solid #222;
 }
+
 .carousel {
 	height: 100%;
 	float: left;
@@ -54,12 +60,12 @@ h1 {
 .carousel_minimized {
 	width: 5%;
 	background-color: #423222;
-	border: 0.1em #222 solid;
+	border-left: 1px solid #222;
+	border-right: 1px solid #222;
 	cursor: pointer;
 }
 .carousel_visible {
 	width: 90%;
-	background-color: #423222;
 }
 .carousel_title_active {
 	font-size: 20pt;
@@ -70,15 +76,16 @@ h1 {
 	font-weight: bold;
 	color: #eee;
 	font-family: Garamond;
-	font-size: 24pt;
-	letter-spacing: 5pt;
+	font-size: 14pt;
+	letter-spacing: 0.8pt;
 	position: relative;
 	top: 90%;
-	left: 35%;
+	left: 25%;
 	width: 60vh;
 	transform: translateY(-50%) rotate(-90deg);
 	transform-origin: left top 0;
 	text-align: center;
+	text-transform: uppercase;
 }
 .carousel_title_hidden {
 	visibility: hidden;
@@ -97,14 +104,21 @@ h1 {
 .info_content {
 	font-size: 14pt;
 	line-height: 24pt;
-	padding-top: 2em;
-	padding-left: 3em;
-	padding-right: 2.5em;
+	padding: 2em 2.5em 2.5em 3em;
+	margin-bottom: 5px;
 	width: 100%;
 	height: 33%;
-	background: linear-gradient(to top, transparent, #4c4f54);
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 .picture_wrapper {
+	padding: 2em 0;
+	margin-left: 0.4em;
+	margin-right: 0.4em;
+	background: #45484c;
+	-webkit-box-shadow: 0px 0px 10px 5px #45484c;
+	-moz-box-shadow: 0px 0px 10px 5px #45484c;
+	box-shadow: 0px 0px 10px 5px #45484c;
 	height: 60%;
 	overflow: hidden;
 	width: 100%;
@@ -117,7 +131,7 @@ h1 {
 	overflow: hidden;
 	white-space: nowrap;
 	position: relative;
-	background: #4c4f54;
+	background: transparent;
 }
 .image_active {
 	position: absolute;
@@ -225,6 +239,9 @@ h1 {
 ---------------------------*/
 
 /* Active Slider */
+.ui-rangeSlider {
+	padding-top: 35px;
+}
 #slider .ui-rangeSlider-bar {
 	background: #FFD700;
 	height: 178px;
@@ -244,15 +261,36 @@ h1 {
     box-shadow: none;
 }
 
+#slider {
+	height: 0px;
+	background-color: #45484c;
+}
 #slider .ui-rangeSlider-container {
 	height: 179px;
 }
+
+#slider .ui-rangeSlider-label {
+	bottom: 10px;
+}
+
+.ui-rangeSlider-label {
+	background: #FFD700;
+    opacity: 0.5;
+	color: #423222;
+	font-size: 11px;
+}
+.ui-rangeSlider-label-inner {
+	border-top: 10px solid #FFD700;
+}
+
 
 /* Disabled Slider */
 .ui-rangeSlider-disabled {
 	padding: 0 !important;
 	z-index: 1;
+	background: #45484c !important;
 }
+
 .ui-rangeSlider-disabled .ui-rangeSlider-label {
 	display: none !important;
 }
@@ -273,8 +311,14 @@ h1 {
 
 .timer .ui-rangeSlider-bar {
 	text-align: center;
-	font-size: 12px;
+	font-size: 9px;
 	text-transform: uppercase;
 	color: #fff;
-	padding-top: 7px;
+	padding-top: 5px;
+}
+
+.ui-rangeSlider-disabled, .ui-rangeSlider-disabled .ui-rangeSlider-innerBar, 
+.ui-rangeSlider-disabled .ui-rangeSlider-bar,
+.ui-rangeSlider-disabled .ui-rangeSlider-handle, .ui-rangeSlider-disabled .ui-rangeSlider-container{
+	height: 20px !important;
 }
