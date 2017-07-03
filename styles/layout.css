@@ -308,6 +308,9 @@ h1 {
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+.ui-rangeSlider-disabled .ui-rangeSlider-bar:hover, .ui-rangeSlider-disabled .ui-rangeSlider-handle:hover {
+	cursor: pointer;
+}
 
 .timer .ui-rangeSlider-bar {
 	text-align: center;

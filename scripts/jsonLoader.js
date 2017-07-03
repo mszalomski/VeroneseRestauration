@@ -76,6 +76,16 @@ $.getJSON("data.json", function(json) {
 	});
 	// END SLIDER
 	
+	$(".ui-rangeSlider-disabled .ui-rangeSlider-bar").on("click", function(){ 
+		var elemId = this.parentNode.parentNode.id;
+		var id = elemId.substr(elemId.indexOf("_") + 1);
+		var startTime = json[id].start_time;
+		setTimeSlider(startTime);
+		currentSlide = parseInt(id) + 1;
+		redrawCarousel();
+	});
+	
+	
 // END JSON DATA
 });
 
