@@ -1,16 +1,8 @@
 var currentSlide = 3;
 var maxSlides = 5;
+var largeSlideContainer = null;
 var initialized = false;
-var SLIDESTATES = {
-	NULL :		0 ,
-	ACTIVE : 	1,
-	MINIMIZED :	2,
-	HIDDEN : 	3
-};
 var jsonContent = null;
-var currentImage = 0;
-var maxImages = 1;
-var slideshowContainer = null;
 var overviewContainer = null;
 var overviewEnlarged = false;
 
@@ -38,6 +30,16 @@ function prepareCarousel() {
 	
 	var carousel = document.getElementById("box_carousel");
 	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
+	largeSlideContainer = document.createElement("div");
+	carousel.appendChild(largeSlideContainer);
+	largeSlideContainer.style.height = "92vh";
+	largeSlideContainer.style.width = (maxSlides * 92).toString() + "vw";
+	largeSlideContainer.style.left = "4vw";
+	largeSlideContainer.style.top = "0";
+	largeSlideContainer.style.position = "fixed";
+	largeSlideContainer.style.margin = 0;
+	largeSlideContainer.style.padding = 0;
+	largeSlideContainer.style.transition = "all .7s ease";
 	currentSlide = 1;
 	for (var i=1; i<=maxSlides; i++) {
 		var dataobject = null;
@@ -48,7 +50,6 @@ function prepareCarousel() {
 		if (dataobject != null) createHTMLslide(carousel, dataobject);
 	}
 	redrawCarousel();
-	redrawSlideshow();
 }
 
 function returnJSONdata(data) {
@@ -58,68 +59,22 @@ function returnJSONdata(data) {
 
 function createHTMLslide(carousel, dataobject) {
 		/*
-slideContainer	<div id="Slide03" class="carousel carousel_visible">
-titleDiv			<div class="carousel_title_active"><p>Ich bin ein Titel</p></div>
-contentDiv			<div class="carousel_content_active">
-contentInfoTitle		<h1>Ich bin ein Titel</h1>
-pictureWrapper			<div class="picture_wrapper">
-pictureDiv					<div class="picture_slider">
-								<img src="images/mockup1.jpg" class="thumbnail" />
-								<img src="images/mockup1.jpg" class="thumbnail" />
-								<img src="images/mockup1.jpg" class="thumbnail" />
-								<img src="images/mockup1.jpg" class="thumbnail" />
-								<img src="images/mockup1.jpg" class="thumbnail" />
-							</div>
-						</div>
-contentInfoDiv			<div class="info_content">
-contentInfoContent			<div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos </p>
-							</div>
-						</div>
-					</div>
+slideContainer	<div id="Slide03" class="carousel">
+
 				</div>
 		*/
 	var slideContainer = document.createElement("div");
 	var number = ("0" + dataobject.id).slice(-2); //padding of a leading zero
 	slideContainer.id = "Slide" + number;
+	slideContainer.className = "carousel";
+	largeSlideContainer.appendChild(slideContainer);
 	
-	var titleDiv = document.createElement("div");
-	titleDiv.textContent = dataobject.title;
-	
-	var contentDiv = document.createElement("div");
-	var contentInfoDiv = document.createElement("div");
-	contentInfoDiv.className = "info_content";
-	var contentInfoTitle = document.createElement("h1");
-	contentInfoTitle.textContent = dataobject.title;
-	var contentInfoContent = document.createElement("div");
-	contentInfoContent.innerHTML = $.ajax({
+	var content = $.ajax({
 		type: "GET",
 		url: "content/" + dataobject.content,
 		async: false
 	}).responseText;
-	
-	var pictureWrapper = document.createElement("div");
-	var pictureDiv = document.createElement("div");
-	pictureWrapper.className = "picture_wrapper";
-	pictureDiv.className = "picture_slider";
-	for (var i=0; i<dataobject.images.length; i++) {
-		var imageElement = document.createElement("img");
-		imageElement.src = "images/" + dataobject.images[i];
-		imageElement.onclick = function() { openSlideshow(this);};
-		imageElement.id = "img"+("0" + i).slice(-2);
-		imageElement.alt = dataobject.title;
-		imageElement.className = "image_active";
-		pictureDiv.appendChild(imageElement);
-	}
-	
-	carousel.appendChild(slideContainer);
-	slideContainer.appendChild(titleDiv);
-	slideContainer.appendChild(contentDiv);
-	contentDiv.appendChild(contentInfoTitle);
-	contentDiv.appendChild(pictureWrapper);
-	pictureWrapper.appendChild(pictureDiv);
-	contentDiv.appendChild(contentInfoDiv);
-	contentInfoDiv.appendChild(contentInfoContent);
+	slideContainer.innerHTML=content;
 	
 	var overviewImage = document.createElement("img");
 	overviewImage.src = "images/overview/" + dataobject.overview;
@@ -134,52 +89,14 @@ function redrawCarousel() {
 		var number = ("0" + i).slice(-2); //padding of a leading zero
 		var slide = document.getElementById("Slide"+number);
 		var overviewImage = document.getElementById("overview"+number);
-		var containerCSS = "";
-		var childTitleCSS = "";
-		var childContentCSS ="";
-		var onClickAction = null;
-		var state = SLIDESTATES.HIDDEN;
-
-		if (i == currentSlide)										state = SLIDESTATES.ACTIVE;
-		if ((i == (currentSlide-1)) || (i == (currentSlide+1)))		state = SLIDESTATES.MINIMIZED;
-		if ((currentSlide == 1) && (i == (currentSlide+2)))			state = SLIDESTATES.MINIMIZED;
-		if ((currentSlide == maxSlides) && (i == (currentSlide-2)))	state = SLIDESTATES.MINIMIZED;
-
-		switch(state) {
-			case SLIDESTATES.ACTIVE:
-				containerCSS = "carousel_visible";
-				childTitleCSS = "carousel_title_hidden";
-				childContentCSS = "carousel_content_active";
-				overviewImage.className = "overview_image_active";
-				break;
-			case SLIDESTATES.MINIMIZED:
-				containerCSS = "carousel_minimized";
-				childTitleCSS = "carousel_title_min";
-				childContentCSS = "carousel_content_hidden";
-				overviewImage.className = "overview_image_inactive";
-				onClickAction = (i < currentSlide) ? prevSlide : nextSlide;
-				break;
-			case SLIDESTATES.HIDDEN:
-				containerCSS = "carousel_hidden";
-				childTitleCSS = "carousel_title_hidden";
-				childContentCSS = "carousel_content_hidden";
-				overviewImage.className = "overview_image_inactive";
-				break;
+		
+		if (i == currentSlide) {
+			overviewImage.className = "overview_image_active";
+		} else {
+			overviewImage.className = "overview_image_inactive";
 		}
-		containerCSS += " carousel";
-		slide.className = containerCSS;
-		slide.onclick = onClickAction;
-		slide.children[0].className = childTitleCSS;
-		slide.children[1].className = childContentCSS;
 	}
-	//activate Slideshow for that slide:
-	var number = ("0" + currentSlide).slice(-2); //padding of a leading zero
-	var slide = document.getElementById("Slide"+number);
-	slideshowContainer = slide.children[1].children[1].children[0];
-	currentImage = 0;
-	maxImages = slideshowContainer.children.length;
-	
-	redrawSlideshow();
+	largeSlideContainer.style.left = ( (currentSlide-1) * (-92) + 4).toString() + "vw";
 }
 
 //move carousel to corresponding slide, if timeline-slider is moved

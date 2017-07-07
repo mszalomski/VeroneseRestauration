@@ -28,29 +28,86 @@ h1 {
 	margin: 0.5em 3em;
 }
 #box_carousel {
-	background: #4c4f54; /* Old browsers */
-	/*background: -moz-linear-gradient(top, #4c4f54 0%, #4c4f54 85%, #4c4f54 86%, #423222 100%); 
-	background: -webkit-linear-gradient(top, #4c4f54 0%,#4c4f54 85%,#4c4f54 86%,#423222 100%); 
-	background: linear-gradient(to bottom, #4c4f54 0%,#4c4f54 85%,#4c4f54 86%,#423222 100%); 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4f54', endColorstr='#423222',GradientType=0 ); */
+	background: #4c4f54;
 	color: #eee;
 	width: 100%;
-	height: 83%;
+	height: 92%;
 	overflow: hidden;
 }
 #box_slider {
 	color: #111;
 	width: 100%;
-	height: 17%;
+	height: 8%;
 	overflow: hidden;
 	background: #45484c !important;
 	border-top: 1px solid #222;
 }
+#overview_small {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 90vw;
+	width: 10vw;
+	max-height: 5vh;
+	background-color: #423222;
+	overflow: hidden;
+	padding: 0.5em;
+	border: 0.2em solid #FFD700;
+	z-index: 100;
+	transition: all .7s ease;
+}
+#overview_large {
+	position: fixed;
+	top: 8vh;
+	left: 0;
+	right: 0;
+	width: 100vw;
+	max-height:65vh;
+	overflow: hidden;
+	background-color: #333;
+	border: 0.8em solid #FFD700;
+	z-index: 100;
+	transition: all .7s ease;
+}
+.overview_image_active {
+	position: absolute;
+	max-width: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	opacity: 1;
+	transition: all .5s ease-out;
+}
+.overview_image_inactive {
+	position: absolute;
+	max-width: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	opacity: 0;
+	transition: all .5s ease-out;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .carousel {
 	height: 100%;
 	float: left;
-	transition: all .5s ease-out;
+	width: 92vw;
+	background: #333;
 }
 .carousel_hidden {
 	width: 0%;
@@ -183,55 +240,7 @@ h1 {
 	transition: all .7s ease;
 	cursor: pointer;
 }
-#overview_small {
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 90vw;
-	width: 10vw;
-	max-height: 5vh;
-	background-color: #423222;
-	overflow: hidden;
-	padding: 0.5em;
-	border: 0.2em solid #FFD700;
-	z-index: 100;
-	transition: all .7s ease;
-}
-#overview_large {
-	position: fixed;
-	top: 8vh;
-	left: 0;
-	right: 0;
-	width: 100vw;
-	max-height:65vh;
-	overflow: hidden;
-	background-color: #333;
-	border: 0.8em solid #FFD700;
-	z-index: 100;
-	transition: all .7s ease;
-}
-.overview_image_active {
-	position: absolute;
-	max-width: 100%;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	opacity: 1;
-	transition: all .5s ease-out;
-}
-.overview_image_inactive {
-	position: absolute;
-	max-width: 100%;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	opacity: 0;
-	transition: all .5s ease-out;
-}
+
 
 
 /*---------------------------
