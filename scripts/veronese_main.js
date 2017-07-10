@@ -28,6 +28,25 @@ function prepareCarousel() {
 	overviewContainer.onclick = toggleOverview;
 	document.body.appendChild(overviewContainer);
 	
+	var leftButton = document.createElement("div");
+	var leftArrow = document.createElement("img");
+	leftButton.id = "leftButton";
+	leftButton.onclick = prevSlide;
+	leftButton.appendChild(leftArrow);
+	leftArrow.src = "arrowLeft.png";
+	leftArrow.className = "buttonArrow";
+	leftArrow.id = "leftArrow";
+	var rightButton = document.createElement("div");
+	var rightArrow = document.createElement("img");
+	rightButton.id = "rightButton";
+	rightButton.onclick = nextSlide;
+	rightButton.appendChild(rightArrow);
+	rightArrow.src = "arrowRight.png";
+	rightArrow.className = "buttonArrow";
+	rightArrow.id = "rightArrow";
+	document.body.appendChild(leftButton);
+	document.body.appendChild(rightButton);
+	
 	var carousel = document.getElementById("box_carousel");
 	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
 	largeSlideContainer = document.createElement("div");
@@ -59,22 +78,68 @@ function returnJSONdata(data) {
 
 function createHTMLslide(carousel, dataobject) {
 		/*
-slideContainer	<div id="Slide03" class="carousel">
-
-				</div>
-		*/
-	var slideContainer = document.createElement("div");
+slide	<div id="Slide03" class="carousel">
+-slideTitle //stays on top
+-slideWrapper //wrapper to hide scrollbar
+ -slideContainer //actual content
+  -slideContainerImages
+  -slideContainerText
+				</div>*/
+	var slide = document.createElement("div");
 	var number = ("0" + dataobject.id).slice(-2); //padding of a leading zero
-	slideContainer.id = "Slide" + number;
-	slideContainer.className = "carousel";
-	largeSlideContainer.appendChild(slideContainer);
+	slide.id = "Slide" + number;
+	slide.className = "carouselSlide";
 	
-	var content = $.ajax({
-		type: "GET",
-		url: "content/" + dataobject.content,
-		async: false
-	}).responseText;
-	slideContainer.innerHTML=content;
+	var slideTitle = document.createElement("div");
+	slideTitle.className = "carouselSlideTitle";
+	var contentInfoTitle = document.createElement("h1");
+	contentInfoTitle.textContent = dataobject.title;
+	var slideWrapper = document.createElement("div");
+	slideWrapper.className = "carouselSlideWrapper";
+	var slideContainer = document.createElement("div");
+	slideContainer.className = "carouselSlideContainer";
+	
+	largeSlideContainer.appendChild(slide);
+	slide.appendChild(slideTitle);
+	slide.appendChild(slideWrapper);
+	slideTitle.appendChild(contentInfoTitle);
+	slideWrapper.appendChild(slideContainer);
+	
+	var contentTable = document.createElement("table");
+	contentTable.style.width = "100%";
+	var firstRow = contentTable.insertRow();
+	var imageColumn = firstRow.insertCell();
+	imageColumn.style.width = "68%";
+	var textColumn = firstRow.insertCell();
+	textColumn.style.width = "32%";
+	for (var i=0; i<dataobject.images.length; i++) {
+		var emptyRow = contentTable.insertRow();
+		var cell1 = emptyRow.insertCell();
+		cell1.style.height = "5vh";
+		var cell2 = emptyRow.insertCell();
+		
+		var row = contentTable.insertRow();
+		var imageCell = row.insertCell();
+		var imageElement = document.createElement("img");
+		imageElement.src = "images/" + dataobject.images[i] + ".jpg";
+		imageElement.id = "img"+("0" + i).slice(-2);
+		imageElement.alt = dataobject.title;
+		imageElement.className = "image_active";
+		imageCell.appendChild(imageElement);
+		imageCell.className = "image_cell";
+		
+		var textCell = row.insertCell();
+		textCell.innerHTML = $.ajax({
+			type: "GET",
+			url: "content/" + dataobject.images[i] + ".html",
+			async: false
+		}).responseText;
+	}
+	var emptyRow = contentTable.insertRow();
+	var cell1 = emptyRow.insertCell();
+	cell1.style.height = "5vh";
+	var cell2 = emptyRow.insertCell();
+	slideContainer.appendChild(contentTable);
 	
 	var overviewImage = document.createElement("img");
 	overviewImage.src = "images/overview/" + dataobject.overview;
@@ -88,13 +153,35 @@ function redrawCarousel() {
 	for (var i=1; i <= maxSlides; i++) {
 		var number = ("0" + i).slice(-2); //padding of a leading zero
 		var slide = document.getElementById("Slide"+number);
-		var overviewImage = document.getElementById("overview"+number);
 		
+		var overviewImage = document.getElementById("overview"+number);
 		if (i == currentSlide) {
 			overviewImage.className = "overview_image_active";
 		} else {
 			overviewImage.className = "overview_image_inactive";
 		}
+	}
+	if (currentSlide == 1) {
+		var leftArrow = document.getElementById("leftArrow");
+		var leftButton = document.getElementById("leftButton");
+		leftArrow.style.display = "none";
+		leftButton.style.cursor = "auto";
+	}
+	if (currentSlide == maxSlides) {
+		var rightArrow = document.getElementById("rightArrow");
+		var rightButton = document.getElementById("rightButton");
+		rightArrow.style.display = "none";
+		rightButton.style.cursor = "auto";
+	}
+	if ((currentSlide != 1) && (currentSlide != maxSlides)) {
+		var rightArrow = document.getElementById("rightArrow");
+		var rightButton = document.getElementById("rightButton");
+		rightArrow.style.display = "initial";
+		rightButton.style.cursor = "pointer";
+		var leftArrow = document.getElementById("leftArrow");
+		var leftButton = document.getElementById("leftButton");
+		leftArrow.style.display = "initial";
+		leftButton.style.cursor = "pointer";
 	}
 	largeSlideContainer.style.left = ( (currentSlide-1) * (-92) + 4).toString() + "vw";
 }
@@ -102,15 +189,11 @@ function redrawCarousel() {
 //move carousel to corresponding slide, if timeline-slider is moved
 function updateCarousel(activeSlides) {
 	//simple version, show the first item in the list. If List is empty, do not change anything
-	if (!initialized) return;
-	if (!(activeSlides instanceof Array)) return;
-	if (activeSlides.length == 0) return;
 	if (currentSlide != activeSlides[0]) {
 		currentSlide = activeSlides[0];
 		redrawCarousel();
 	}
 }
-
 function nextSlide() {
 	if (currentSlide < maxSlides) {
 		currentSlide++;
@@ -126,44 +209,18 @@ function prevSlide() {
 	}
 }
 
-//picture slideshow inside the carousel, move images
-function redrawSlideshow() {
-	for (var i = 0; i<maxImages; i++) {
-		var imageElement = slideshowContainer.children[i];
-		if (i == currentImage) {
-			imageElement.className = "image_active";
-			imageElement.onclick = function() { return false; };
-		}
-		if (i < currentImage) {
-			imageElement.className = "image_left";
-			imageElement.onclick = prevImage;
-		}
-		if (i > currentImage) {
-			imageElement.className = "image_right";
-			imageElement.onclick = nextImage;
-		}
-	}
-}
-
-function nextImage() {
-	currentImage = (currentImage < (maxImages-1)) ? currentImage+1 : 0;
-	redrawSlideshow();
-}
-function prevImage() {
-	currentImage = (currentImage > 0) ? currentImage-1 : maxImages-1;
-	redrawSlideshow();
-}
-
 function toggleOverview() {
 	var maindiv = document.getElementById("maindiv");
 	if (overviewEnlarged) {
 		overviewContainer.id = "overview_small";
 		overviewEnlarged = false;
 		maindiv.onclick = function() { return false; };
+		largeSlideContainer.style.top = "0";
 	} else {
 		overviewContainer.id = "overview_large";
 		overviewEnlarged = true;
 		maindiv.onclick = toggleOverview;
+		largeSlideContainer.style.top = "85vh";
 	}
 }
 

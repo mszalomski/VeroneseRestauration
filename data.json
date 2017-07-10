@@ -8,9 +8,9 @@
 		"content" : "querschliff.html",
 		"overview" : "querschliffpos.jpg",
 		"images" : [
-		"quer_blau.jpg",
-		"quer_gruen.jpg",
-		"quer_rot.jpg"
+		"quer_1",
+		"quer_2",
+		"quer_3"
 		]
 	},
 	{
@@ -22,9 +22,9 @@
 		"content" : "firnisabnahme.html",
 		"overview" : "vorzustand.jpg",
 		"images" : [
-		"firnis_detail.jpg",
-		"firnis_watte.jpg",
-		"firnis_koblenz.jpg"
+		"firnis_1",
+		"firnis_2",
+		"firnis_3"
 		]
 	},
 	{
@@ -36,9 +36,9 @@
 		"content" : "infrarot.html",
 		"overview" : "infrared.jpg",
 		"images" : [
-		"infrarot_bruder.jpg",
-		"infrarot_kind.jpg",
-		"infrarot_hamburg.jpg"
+		"infrarot_1",
+		"infrarot_2",
+		"infrarot_3"
 		]
 	},
 	{
@@ -50,8 +50,8 @@
 		"content" : "roentgen.html",
 		"overview" : "roentgen.jpg",
 		"images" : [
-		"roentgen_process.jpg",
-		"roentgen_process2.jpg"
+		"roentgen_1",
+		"roentgen_2"
 		]
 	},
 	{
@@ -63,8 +63,9 @@
 		"content" : "uv.html",
 		"overview" : "ultraviolett_color.jpg",
 		"images" : [
-		"roentgen_process.jpg",
-		"roentgen_process2.jpg"
+		"uv_1",
+		"uv_2",
+		"uv_3"
 		]
 	},
 	{
@@ -76,13 +77,13 @@
 		"content" : "retusche.html",
 		"overview" : "vorzustand.jpg",
 		"images" : [
-		"retusche_1pre.jpg",
-		"retusche_1post.jpg",
-		"retusche_2pre.jpg",
-		"retusche_2post.jpg",
-		"retusche_3pre.jpg",
-		"retusche_3post.jpg",
-		"retusche_process.jpg"
+		"retusche_1",
+		"retusche_2",
+		"retusche_3",
+		"retusche_4",
+		"retusche_5",
+		"retusche_6",
+		"retusche_7"
 		]
 	}
 ]
