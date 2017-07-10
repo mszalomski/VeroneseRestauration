@@ -6,9 +6,9 @@ $.getJSON("data.json", function(json) {
 	
 	// Insert Timer Divs
 	for(var i = 0; i < json.length; i++) {
-		$("#box_slider").append('<div id="timer_' +i +'" class="timer"></div>');
+		$("#disabled_sliders").append('<div id="timer_' +i +'" class="timer"></div>');
 		
-		$('#timer_' +i).dateRangeSlider({
+		var disabledSlider = $('#timer_' +i).dateRangeSlider({
 			enabled: false,
 			arrows: false,
 			bounds:{
@@ -21,7 +21,18 @@ $.getJSON("data.json", function(json) {
 			}
 		});
 		
-		$('#timer_' +i +' .ui-rangeSlider-bar').append(json[i].title_short);
+		var childContainer = disabledSlider[0].childNodes[0];
+		
+		var bar = childContainer.getElementsByClassName("ui-rangeSlider-bar")[0];
+		
+
+		
+		bar.id = (i+1);
+		
+		bar.innerHTML = json[i].title_short;
+		
+		bar.className += ' slider_bar';
+		$("#bars").append(bar);	
 	}
 	
 	// SLIDER
@@ -46,10 +57,26 @@ $.getJSON("data.json", function(json) {
 			min: {days: 7}
 		}
 	});
+
+	// END SLIDER
 	
+	$(".ui-rangeSlider-disabled .ui-rangeSlider-bar").on("click", function(){ 
+		var elemId = this.parentNode.parentNode.id;
+		var id = elemId.substr(elemId.indexOf("_") + 1);
+		var startTime = json[id].start_time;
+		setTimeSlider(startTime);
+		currentSlide = parseInt(id) + 1;
+		redrawCarousel();
+	});
+	
+	
+// END JSON DATA
+});
+
+$(document).ready(function() {	 
 	$("#slider").bind("valuesChanging", function(e, data){
 		var activeValues = [];
-		json.forEach(
+		jsonContent.forEach(
 			function(value, i, array){
 				var dFrom = value.start_time.split("-");
 				var dTo = value.end_time.split("-");
@@ -69,24 +96,17 @@ $.getJSON("data.json", function(json) {
 					if(activeValues.indexOf(value.id) !== -1){
 						activeValues.splice(activeValues.indexOf(value.id), 1);
 					}
+					
 				}
 			}
 		);
 		updateCarousel(activeValues);
 	});
-	// END SLIDER
 	
-	$(".ui-rangeSlider-disabled .ui-rangeSlider-bar").on("click", function(){ 
-		var elemId = this.parentNode.parentNode.id;
-		var id = elemId.substr(elemId.indexOf("_") + 1);
-		var startTime = json[id].start_time;
-		setTimeSlider(startTime);
-		currentSlide = parseInt(id) + 1;
-		redrawCarousel();
+	// Insert Image Container
+	$(".slider_bar").each(function(){
+		
 	});
-	
-	
-// END JSON DATA
 });
 
 function setTimeSlider(startTime){
