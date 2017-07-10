@@ -73,9 +73,9 @@
 		"title" : "Retusche von Fehlstellen",
 		"title_short" : "Retusche",
 		"start_time" : "2017-09-01",
-		"end_time" : "2017-12-31",
+		"end_time" : "2017-11-31",
 		"content" : "retusche.html",
-		"overview" : "vorzustand.jpg",
+		"overview" : "retusche.jpg",
 		"images" : [
 		"retusche_1",
 		"retusche_2",
@@ -84,6 +84,18 @@
 		"retusche_5",
 		"retusche_6",
 		"retusche_7"
+		]
+	},
+	{
+		"id": 7,
+		"title" : "Fertig restauriertes Werk",
+		"title_short" : "Endzustand",
+		"start_time" : "2017-12-01",
+		"end_time" : "2017-12-31",
+		"content" : "fertig.html",
+		"overview" : "endzustand.jpg",
+		"images" : [
+		"endzustand"
 		]
 	}
 ]
