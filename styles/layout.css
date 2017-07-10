@@ -40,7 +40,6 @@ h1 {
 	height: 5%;
 	overflow: hidden;
 	background: #45484c !important;
-	border-top: 1px solid #222;
 }
 #overview_small {
 	position: fixed;
