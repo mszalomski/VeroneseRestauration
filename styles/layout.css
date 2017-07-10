@@ -28,16 +28,15 @@ h1 {
 	background: #333;
 	color: #eee;
 	width: 100%;
-	height: 92%;
+	height: 95%;
 	overflow: hidden;
 }
 #box_slider {
 	color: #111;
 	width: 100%;
-	height: 8%;
+	height: 5%;
 	overflow: hidden;
 	background: #45484c !important;
-	border-top: 1px solid #222;
 }
 #leftButton {
 	position: fixed;
@@ -180,9 +179,10 @@ h1 {
 }
 #slider .ui-rangeSlider-bar {
 	background: #FFD700;
-	height: 178px;
+	height: 29px;
 	opacity: 0.5;
 	z-index: 2;
+	border-radius: 0;
 }
 
 .ui-rangeSlider-noArrow .ui-rangeSlider-container {
@@ -200,6 +200,7 @@ h1 {
 #slider {
 	height: 0px;
 	background-color: #45484c;
+	padding-top: 0;
 }
 #slider .ui-rangeSlider-container {
 	height: 179px;
@@ -219,45 +220,20 @@ h1 {
 	border-top: 10px solid #FFD700;
 }
 
-
-/* Disabled Slider */
-.ui-rangeSlider-disabled {
-	padding: 0 !important;
-	z-index: 1;
-	background: #45484c !important;
-}
-
-.ui-rangeSlider-disabled .ui-rangeSlider-label {
-	display: none !important;
-}
-.ui-rangeSlider-disabled.ui-rangeSlider-noArrow .ui-rangeSlider-container {
-	border: none;
-	background: none;
-}
-.ui-rangeSlider-disabled .ui-rangeSlider-bar {
-	background: #423222;
-}
-.ui-rangeSlider-disabled.ui-rangeSlider-withArrows .ui-rangeSlider-container, 
-.ui-rangeSlider-disabled.ui-rangeSlider-noArrow .ui-rangeSlider-container, 
-.ui-rangeSlider-disabled .ui-rangeSlider-arrow {
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}
-.ui-rangeSlider-disabled .ui-rangeSlider-bar:hover, .ui-rangeSlider-disabled .ui-rangeSlider-handle:hover {
-	cursor: pointer;
-}
-
-.timer .ui-rangeSlider-bar {
+.slider_bar {
 	text-align: center;
-	font-size: 11px;
-	text-transform: uppercase;
-	color: #fff;
-	padding-top: 9px;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #fff;
+    padding-top: 5px;
+	background: #423222;
+	border-radius: 0;
 }
 
-.ui-rangeSlider-disabled, .ui-rangeSlider-disabled .ui-rangeSlider-innerBar, 
-.ui-rangeSlider-disabled .ui-rangeSlider-bar,
-.ui-rangeSlider-disabled .ui-rangeSlider-handle, .ui-rangeSlider-disabled .ui-rangeSlider-container{
-	height: 30px !important;
+#disabled_sliders {
+	visibility: hidden;
+}
+
+.slider_bar:hover {
+	cursor: pointer;
 }
