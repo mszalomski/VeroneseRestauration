@@ -51,7 +51,7 @@ function prepareCarousel() {
 	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
 	largeSlideContainer = document.createElement("div");
 	carousel.appendChild(largeSlideContainer);
-	largeSlideContainer.style.height = "92vh";
+	largeSlideContainer.style.height = "94vh";
 	largeSlideContainer.style.width = (maxSlides * 92).toString() + "vw";
 	largeSlideContainer.style.left = "4vw";
 	largeSlideContainer.style.top = "0";

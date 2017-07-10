@@ -22,26 +22,26 @@ p {
 	text-align: justify;
 }
 h1 {
-	margin: 0.2em 1.5em;
+	margin: 1em 1.5em;
 }
 #box_carousel {
 	background: #333;
 	color: #eee;
 	width: 100%;
-	height: 92%;
+	height: 94%;
 	overflow: hidden;
 }
 #box_slider {
 	color: #111;
 	width: 100%;
-	height: 8%;
+	height: 6%;
 	overflow: hidden;
 	background: #45484c !important;
 }
 #leftButton {
 	position: fixed;
 	width: 4vw;
-	height: 92vh;
+	height: 94vh;
 	top:0;
 	left: 0;
 	z-index: 101;
@@ -51,7 +51,7 @@ h1 {
 #rightButton {
 	position: fixed;
 	width: 4vw;
-	height: 92vh;
+	height: 94vh;
 	top:0;
 	right: 0;
 	z-index: 101;
@@ -69,10 +69,10 @@ h1 {
 }
 #overview_small {
 	position: fixed;
-	top: -7vh;
-	left: 67vw;
+	top: -5vh;
+	left: 69vw;
 	width: 23vw;
-	right: 10vw;
+	right: 8vw;
 	max-height: 14vh;
 	background-color: #333;
 	overflow: hidden;
@@ -128,15 +128,15 @@ h1 {
 	position: absolute;
 	top:0;
 	left:0;
-	height: 5vh;
+	height: 9vh;
 	width: 62%;
 }
 .carouselSlideWrapper {
 	position:absolute;
-	top: 5vh;
+	top: 9vh;
 	left: 0;
 	width: 100%;
-	height: 87vh; /*92-5vh*/
+	height: 85vh; /*94-9vh*/
 	overflow: hidden;
 }
 .carouselSlideContainer {
