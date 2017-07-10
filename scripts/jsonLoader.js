@@ -45,7 +45,7 @@ $.getJSON("data.json", function(json) {
 		},
 		defaultValues:{
 			min: new Date(2016, 0, 1),
-			max: new Date(2016, 0, 29)
+			max: new Date(2016, 3, 29)
 		},
 		formatter:function(val){
 			var days = val.getDate(),
@@ -54,7 +54,7 @@ $.getJSON("data.json", function(json) {
 			return days + "." + month + "." + year;
 		},
 		range:{
-			min: {days: 7}
+			min: {days: 100}
 		}
 	});
 
