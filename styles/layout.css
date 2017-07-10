@@ -304,8 +304,10 @@ h1 {
 	border-radius: 0;
 }
 
-
-
 #disabled_sliders {
 	visibility: hidden;
+}
+
+.slider_bar:hover {
+	cursor: pointer;
 }
