@@ -15,6 +15,14 @@ function init() {
 	} else {
 		prepareCarousel();
 	}
+	
+	//minimize the tiles
+	var tileDiv = document.getElementById("tiles");
+	var tiles = tileDiv.children;
+	tileDiv.id = "tilesMin";
+	for(var i=0; i<tiles.length; i++) {
+		tiles[i].className = "imageTilesMin";
+	}
 }
 
 function prepareCarousel() {
