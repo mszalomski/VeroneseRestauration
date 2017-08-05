@@ -110,7 +110,7 @@ $(document).ready(function() {
 			console.log(tileId);
 			$('#tile_' +id).animate({
 				opacity: 1,
-			}, 500);
+			}, 100);
 		}, 
 		function() {
 			var id = $(this).attr("id");
@@ -118,7 +118,7 @@ $(document).ready(function() {
 			
 			$('#tile_' +id).animate({
 				opacity: 0,
-			}, 500);
+			}, 100);
 		}
 	);
 	
