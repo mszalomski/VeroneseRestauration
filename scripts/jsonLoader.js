@@ -44,8 +44,8 @@ $.getJSON("data.json", function(json) {
 			max: new Date(2017, 11, 31)
 		},
 		defaultValues:{
-			min: new Date(2016, 0, 1),
-			max: new Date(2016, 3, 29)
+			min: new Date(2016, 1, 10),
+			max: new Date(2016, 2, 10)
 		},
 		formatter:function(val){
 			var days = val.getDate(),
@@ -54,7 +54,7 @@ $.getJSON("data.json", function(json) {
 			return days + "." + month + "." + year;
 		},
 		range:{
-			min: {days: 100}
+			min: {days: 30}
 		}
 	});
 
@@ -102,11 +102,33 @@ $(document).ready(function() {
 		redrawCarousel();
 	});
 	
+	$(".slider_bar").hover(
+		function() {
+			var id = $(this).attr("id");
+			var tileId = '#tile_' +id;
+			
+			console.log(tileId);
+			$('#tile_' +id).animate({
+				opacity: 1,
+			}, 500);
+		}, 
+		function() {
+			var id = $(this).attr("id");
+			var tileId = '#tile_' +id;
+			
+			$('#tile_' +id).animate({
+				opacity: 0,
+			}, 500);
+		}
+	);
+	
 });
 
 function setTimeSlider(startTime){
 	var dFrom = startTime.split("-");
 	var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
+	dateBegin = dateBegin.addDays(40);
+	console.log(dateBegin);
 	var dateEnd = dateBegin.addDays(28);
 	$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
 }

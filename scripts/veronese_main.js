@@ -16,14 +16,18 @@ function init() {
 		prepareCarousel();
 	}
 	
-	//minimize the tiles
-	var tileDiv = document.getElementById("tiles");
-	var tiles = tileDiv.children;
-	tileDiv.id = "tilesMin";
-	for(var i=0; i<tiles.length; i++) {
-		tiles[i].className = "imageTilesMin";
-	}
+	hideTiles();
+
 }
+
+function hideTiles(){
+	$("#tiles img").each(function() {
+		$(this).animate({
+			opacity:"0"
+		}, 1000);
+	});
+}
+
 
 function prepareCarousel() {
 	if (!(jsonContent instanceof Array)) {
