@@ -24,7 +24,15 @@ function hideTiles(){
 	$("#tiles img").each(function() {
 		$(this).animate({
 			opacity:"0"
-		}, 1000);
+		}, 800);
+	});
+}
+
+function hideSelectedTiles(){
+	$("#tiles img").each(function() {
+		$(this).animate({
+			opacity:"0"
+		}, 500);
 	});
 }
 
@@ -172,8 +180,8 @@ function redrawCarousel() {
 	}
 	if (currentSlide == 1) {
 		var leftArrow = document.getElementById("leftArrow");
-		var leftButton = document.getElementById("leftButton");
 		leftArrow.style.display = "none";
+		var leftButton = document.getElementById("leftButton");
 		leftButton.style.cursor = "auto";
 	}
 	if (currentSlide == maxSlides) {
@@ -200,7 +208,13 @@ function updateCarousel(activeSlides) {
 	//simple version, show the first item in the list. If List is empty, do not change anything
 	if (currentSlide != activeSlides[0]) {
 		currentSlide = activeSlides[0];
+
 		redrawCarousel();
+		
+		$('#tile_' +currentSlide).animate({
+			opacity: 1,
+		}, 500);
+		hideSelectedTiles();
 	}
 }
 function nextSlide() {
@@ -209,6 +223,11 @@ function nextSlide() {
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
+	
+	$('#tile_' +currentSlide).animate({
+		opacity: 1,
+	}, 500);
+	hideSelectedTiles();
 }
 function prevSlide() {
 	if (currentSlide > 1) {
@@ -216,6 +235,11 @@ function prevSlide() {
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
+	
+	$('#tile_' +currentSlide).animate({
+		opacity: 1,
+	}, 500);
+	hideSelectedTiles();
 }
 
 function toggleOverview() {

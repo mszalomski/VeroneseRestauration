@@ -102,6 +102,7 @@ $(document).ready(function() {
 		redrawCarousel();
 	});
 	
+	/*
 	$(".slider_bar").hover(
 		function() {
 			var id = $(this).attr("id");
@@ -110,7 +111,7 @@ $(document).ready(function() {
 			console.log(tileId);
 			$('#tile_' +id).animate({
 				opacity: 1,
-			}, 100);
+			}, 400);
 		}, 
 		function() {
 			var id = $(this).attr("id");
@@ -118,9 +119,10 @@ $(document).ready(function() {
 			
 			$('#tile_' +id).animate({
 				opacity: 0,
-			}, 100);
+			}, 400);
 		}
 	);
+	*/
 	
 });
 
