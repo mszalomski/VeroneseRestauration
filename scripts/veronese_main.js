@@ -24,7 +24,7 @@ function hideTiles(){
 	$("#tiles img").each(function() {
 		$(this).animate({
 			opacity:"0"
-		}, 1000);
+		}, 800);
 	});
 }
 
@@ -175,8 +175,8 @@ function redrawCarousel() {
 	}
 	if (currentSlide == 1) {
 		var leftArrow = document.getElementById("leftArrow");
-		var leftButton = document.getElementById("leftButton");
 		leftArrow.style.display = "none";
+		var leftButton = document.getElementById("leftButton");
 		leftButton.style.cursor = "auto";
 	}
 	if (currentSlide == maxSlides) {
@@ -203,7 +203,15 @@ function updateCarousel(activeSlides) {
 	//simple version, show the first item in the list. If List is empty, do not change anything
 	if (currentSlide != activeSlides[0]) {
 		currentSlide = activeSlides[0];
+
 		redrawCarousel();
+		
+		
+		$('#tile_' +currentSlide).animate({
+			opacity: 1,
+		}, 100);
+		
+		hideTiles();
 	}
 }
 function nextSlide() {
