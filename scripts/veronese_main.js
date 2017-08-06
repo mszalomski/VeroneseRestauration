@@ -28,6 +28,14 @@ function hideTiles(){
 	});
 }
 
+function hideSelectedTiles(){
+	$("#tiles img").each(function() {
+		$(this).animate({
+			opacity:"0"
+		}, 500);
+	});
+}
+
 
 function prepareCarousel() {
 	if (!(jsonContent instanceof Array)) {
@@ -206,12 +214,10 @@ function updateCarousel(activeSlides) {
 
 		redrawCarousel();
 		
-		
 		$('#tile_' +currentSlide).animate({
 			opacity: 1,
-		}, 100);
-		
-		hideTiles();
+		}, 500);
+		hideSelectedTiles();
 	}
 }
 function nextSlide() {
@@ -220,6 +226,11 @@ function nextSlide() {
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
+	
+	$('#tile_' +currentSlide).animate({
+		opacity: 1,
+	}, 500);
+	hideSelectedTiles();
 }
 function prevSlide() {
 	if (currentSlide > 1) {
@@ -227,6 +238,11 @@ function prevSlide() {
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
 	}
+	
+	$('#tile_' +currentSlide).animate({
+		opacity: 1,
+	}, 500);
+	hideSelectedTiles();
 }
 
 function toggleOverview() {

@@ -102,7 +102,7 @@ $(document).ready(function() {
 		redrawCarousel();
 	});
 	
-	
+	/*
 	$(".slider_bar").hover(
 		function() {
 			var id = $(this).attr("id");
@@ -122,6 +122,7 @@ $(document).ready(function() {
 			}, 400);
 		}
 	);
+	*/
 	
 });
 
