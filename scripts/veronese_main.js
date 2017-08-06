@@ -63,14 +63,11 @@ function prepareCarousel() {
 	maxSlides = jsonContent.length; //start numbering of slides beginning from 1
 	largeSlideContainer = document.createElement("div");
 	carousel.appendChild(largeSlideContainer);
+	largeSlideContainer.id = "carouselLargeFrame";
 	largeSlideContainer.style.height = "94vh";
-	largeSlideContainer.style.width = (maxSlides * 92).toString() + "vw";
-	largeSlideContainer.style.left = "4vw";
+	largeSlideContainer.style.width = (maxSlides * (92 + 4) + 4).toString() + "vw";
+	largeSlideContainer.style.left = "0vw";
 	largeSlideContainer.style.top = "0";
-	largeSlideContainer.style.position = "fixed";
-	largeSlideContainer.style.margin = 0;
-	largeSlideContainer.style.padding = 0;
-	largeSlideContainer.style.transition = "all .7s ease";
 	currentSlide = 1;
 	for (var i=1; i<=maxSlides; i++) {
 		var dataobject = null;
@@ -195,7 +192,7 @@ function redrawCarousel() {
 		leftArrow.style.display = "initial";
 		leftButton.style.cursor = "pointer";
 	}
-	largeSlideContainer.style.left = ( (currentSlide-1) * (-92) + 4).toString() + "vw";
+	largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4)).toString() + "vw";
 }
 
 //move carousel to corresponding slide, if timeline-slider is moved

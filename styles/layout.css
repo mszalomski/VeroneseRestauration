@@ -17,15 +17,32 @@ body>div {
 	overflow:hidden;
 }
 p {
-	margin: 2em;
+	margin-left: 2em;
+	margin-bottom: 0;
+	padding: 1em;
 	text-indent: 2em;
 	text-align: justify;
+	background-color: #423222;
+	border-radius: 0.1vh;
+	border: 1px solid;
+	border-top-color: #5d4935;
+	border-left-color: #5d4935;
+	border-right-color: #271d14;
+	border-bottom-color: #271d14;
+	box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.86);
+	
+}
+td {
+	padding:0;
+	vertical-align: bottom;
 }
 h1 {
-	margin: 1em 1.5em;
+	margin: 1em 0em;
 }
 #box_carousel {
-	background: #333;
+	background: url("background_wood.jpg");
+    background-size: 50vw 50vh;
+    background-repeat: repeat;
 	color: #eee;
 	width: 100%;
 	height: 94%;
@@ -45,7 +62,7 @@ h1 {
 	top:0;
 	left: 0;
 	z-index: 101;
-	background: linear-gradient(to left, transparent, #423222);
+	background: linear-gradient(to left, transparent, #333);
 	cursor: pointer;
 }
 #rightButton {
@@ -55,7 +72,7 @@ h1 {
 	top:0;
 	right: 0;
 	z-index: 101;
-	background: linear-gradient(to right, transparent, #423222);
+	background: linear-gradient(to right, transparent, #333);
 	cursor: pointer;
 }
 .buttonArrow {
@@ -70,25 +87,27 @@ h1 {
 #overview_small {
 	position: fixed;
 	top: -5vh;
-	left: 69vw;
-	width: 23vw;
+	left: 67.8vw;
+	width: 27.3vw;
 	right: 8vw;
 	max-height: 14vh;
+	margin-top: 2px;
 	background-color: #333;
+	border: solid 1px #FFF;
 	overflow: hidden;
 	padding: 0;
 	z-index: 100;
-	box-shadow: 0em 0em 2em 0.1em #fff;
 	transition: all .7s ease;
 }
 #overview_large {
 	position: fixed;
-	top: 8vh;
+	top: 10vh;
 	left: 4vw;
 	right: 4vw;
 	width: 92vw;
-	max-height:65vh;
+	max-height: 62vh;
 	overflow: hidden;
+	border: 2px solid #000;
 	background-color: #333;
 	z-index: 100;
 	transition: all .7s ease;
@@ -115,12 +134,23 @@ h1 {
 	opacity: 0;
 	transition: all .5s ease-out;
 }
+#carouselLargeFrame {
+	position: fixed;
+	margin: 0px;
+	padding: 0px;
+	padding-left: 4vw;
+	transition: all 0.7s ease 0s;
+	border-top: 2px solid #000;
+	background: url("background_fabric.jpg");
+    background-size: 25vw 25vh;
+    background-repeat: repeat;
+}
 .carouselSlide {
 	height: 100%;
 	float: left;
 	position: relative;
 	width: 92vw;
-	background: #333;
+	margin-right: 4vw;
 	overflow:hidden;
 }
 .carouselSlideTitle {
@@ -128,7 +158,9 @@ h1 {
 	top:0;
 	left:0;
 	height: 9vh;
-	width: 62%;
+	width: 100%;
+	border-bottom: solid 1px #fff;
+	box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.86);
 }
 .carouselSlideWrapper {
 	position:absolute;
@@ -146,7 +178,11 @@ h1 {
 }
 .image_active {
 	max-width: 62vw;
-	max-height: 75vh; 
+	max-height: 75vh;
+	margin-left: 1px;
+	border-radius: 0.1vh;
+	border: 1px solid #ddd;
+	box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.86);
 }
 .image_cell {
 	text-align: center;
@@ -170,7 +206,7 @@ h1 {
 	width: 14.2857%;
 	float: left;
 	margin-bottom: 20px;
-	box-shadow: 0em 0em 0.5em 0.1em #fff;
+	
 }
 
 
