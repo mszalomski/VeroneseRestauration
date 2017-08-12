@@ -28,13 +28,13 @@ h1 {
 	background: #333;
 	color: #eee;
 	width: 100%;
-	height: 94%;
+	height: 90%;
 	overflow: hidden;
 }
 #box_slider {
 	color: #111;
 	width: 100%;
-	height: 6%;
+	height: 10%;
 	overflow: hidden;
 	background: #45484c !important;
 }
@@ -245,11 +245,25 @@ h1 {
 	padding-top: 35px;
 }
 #slider .ui-rangeSlider-bar {
+	top: 30px !important;
 	background: #FFD700;
 	height: 29px;
+	width: 150px !important;
 	opacity: 0.5;
 	z-index: 2;
 	border-radius: 0;
+}
+#slider .ui-rangeSlider-bar:before {
+	content:'';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -25px;
+    width: 0;
+    height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 10px solid #FFD700;
 }
 
 .ui-rangeSlider-noArrow .ui-rangeSlider-container {
@@ -292,7 +306,7 @@ h1 {
     font-size: 13px;
     text-transform: uppercase;
     color: #fff;
-    padding-top: 5px;
+    padding-top: 6px;
 	background: #423222;
 	border-radius: 0;
 }

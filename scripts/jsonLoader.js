@@ -72,13 +72,15 @@ $(document).ready(function() {
 				var dTo = value.end_time.split("-");
 				
 				var dateFrom = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
+				console.log(dateFrom);
 				var dateTo = new Date(dTo[0], parseInt(dTo[1])-1, dTo[2]);
 				
 				var checkMin = data.values.min;
 				var checkMax = data.values.max;
+				var midDate = new Date((checkMin.getTime() + checkMax.getTime()) / 2);
 				
 				// Check if date is in the time period
-				if(checkMax >= dateFrom && checkMax <= dateTo || checkMin >= dateFrom && checkMin <= dateTo){
+				if(midDate >= dateFrom && midDate <= dateTo){
 					if(activeValues.indexOf(value.id) === -1){
 						activeValues.push(value.id);
 					}
@@ -101,28 +103,6 @@ $(document).ready(function() {
 		currentSlide = parseInt(id);
 		redrawCarousel();
 	});
-	
-	/*
-	$(".slider_bar").hover(
-		function() {
-			var id = $(this).attr("id");
-			var tileId = '#tile_' +id;
-			
-			console.log(tileId);
-			$('#tile_' +id).animate({
-				opacity: 1,
-			}, 400);
-		}, 
-		function() {
-			var id = $(this).attr("id");
-			var tileId = '#tile_' +id;
-			
-			$('#tile_' +id).animate({
-				opacity: 0,
-			}, 400);
-		}
-	);
-	*/
 	
 });
 
