@@ -64,6 +64,8 @@ $.getJSON("data.json", function(json) {
 });
 
 $(document).ready(function() {	 
+	var click = false;
+	
 	$("#slider").bind("valuesChanging", function(e, data){
 		var activeValues = [];
 		jsonContent.forEach(
@@ -76,9 +78,10 @@ $(document).ready(function() {
 				
 				var checkMin = data.values.min;
 				var checkMax = data.values.max;
+				var midDate = new Date((checkMin.getTime() + checkMax.getTime()) / 2);
 				
 				// Check if date is in the time period
-				if(checkMax >= dateFrom && checkMax <= dateTo || checkMin >= dateFrom && checkMin <= dateTo){
+				if(midDate >= dateFrom && midDate <= dateTo){
 					if(activeValues.indexOf(value.id) === -1){
 						activeValues.push(value.id);
 					}
@@ -102,36 +105,77 @@ $(document).ready(function() {
 		redrawCarousel();
 	});
 	
-	/*
-	$(".slider_bar").hover(
-		function() {
-			var id = $(this).attr("id");
-			var tileId = '#tile_' +id;
-			
-			console.log(tileId);
-			$('#tile_' +id).animate({
-				opacity: 1,
-			}, 400);
-		}, 
-		function() {
-			var id = $(this).attr("id");
-			var tileId = '#tile_' +id;
-			
-			$('#tile_' +id).animate({
-				opacity: 0,
-			}, 400);
-		}
-	);
-	*/
+	// Mouse + Touch Functionality Tiles
+	$('#slider .ui-rangeSlider-bar').on('mousedown touchstart', function(){
+		click = true;
+		resizeTiles();
+	});
 	
+	$(document).on('mousemove touchmove', function(){
+		if(click == false) 
+			return;
+		resizeTiles();
+	});
+
+	$(document).on('mouseup touchend', function(){
+		click = false;
+		hideTiles();
+	});
 });
+
+function resizeTiles(){
+	$("#tiles img").each(function(index, element) {
+		if((index + 1) == (currentSlide - 1) || (index + 1) == (currentSlide +1)){
+			$(element).css({
+				opacity: '1',
+				height: '120px'
+			});
+		}
+		else if((index + 1) == (currentSlide - 2) || (index + 1) == (currentSlide +2)){
+			$(element).css({
+				opacity: '1',
+				height: '80px'
+			});
+		}
+		else if((index + 1) == (currentSlide)){
+			$(element).css({
+				opacity: '1',
+				height: '180px'
+			});
+		}
+		else {
+			$(element).css({
+				opacity: '0',
+				height: '180px'
+			});
+		}
+	});
+}
+
+function hideTiles(){
+	$("#tiles img").each(function(index, element) {
+		$(element).animate({
+			opacity: '0'
+		}, 250);
+	});	
+}
+
+function assignTiles(){
+	var tilesNr = $("#tiles img").length;
+	var width = 100 / tilesNr;
+	
+	$("#tiles img").each(function(index, element) {
+		var left = index * width;
+		$(element).css("width", width +'%');
+		$(element).css("left", left +'%');
+	});
+}
 
 function setTimeSlider(startTime){
 	var dFrom = startTime.split("-");
 	var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
-	dateBegin = dateBegin.addDays(40);
-	console.log(dateBegin);
-	var dateEnd = dateBegin.addDays(28);
+	dateBegin = dateBegin.addDays(10);
+	var dateEnd = dateBegin.addDays(40);
 	$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
 }
 
