@@ -72,7 +72,6 @@ $(document).ready(function() {
 				var dTo = value.end_time.split("-");
 				
 				var dateFrom = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
-				console.log(dateFrom);
 				var dateTo = new Date(dTo[0], parseInt(dTo[1])-1, dTo[2]);
 				
 				var checkMin = data.values.min;
@@ -104,7 +103,74 @@ $(document).ready(function() {
 		redrawCarousel();
 	});
 	
+	var click = false;
+	
+	
+	// Mouse + Touch Functionality Tiles
+	$('#slider .ui-rangeSlider-bar').on('mousedown touchstart', function(){
+		click = true;
+		resizeTiles();
+	});
+	
+	$(document).on('mousemove touchmove', function(){
+		if(click == false) 
+			return;
+		resizeTiles();
+	});
+
+	$(document).on('mouseup touchend', function(){
+		click = false;
+		hideTiles();
+	});
 });
+
+function resizeTiles(){
+	$("#tiles img").each(function(index, element) {
+		if((index + 1) == (currentSlide - 1) || (index + 1) == (currentSlide +1)){
+			$(element).css({
+				opacity: '1',
+				height: '120px'
+			});
+		}
+		else if((index + 1) == (currentSlide - 2) || (index + 1) == (currentSlide +2)){
+			$(element).css({
+				opacity: '1',
+				height: '80px'
+			});
+		}
+		else if((index + 1) == (currentSlide)){
+			$(element).css({
+				opacity: '1',
+				height: '180px'
+			});
+		}
+		else {
+			$(element).css({
+				opacity: '0',
+				height: '180px'
+			});
+		}
+	});
+}
+
+function hideTiles(){
+	$("#tiles img").each(function(index, element) {
+		$(element).animate({
+			opacity: '0'
+		}, 250);
+	});	
+}
+
+function assignTiles(){
+	var tilesNr = $("#tiles img").length;
+	var width = 100 / tilesNr;
+	
+	$("#tiles img").each(function(index, element) {
+		var left = index * width;
+		$(element).css("width", width +'%');
+		$(element).css("left", left +'%');
+	});
+}
 
 function setTimeSlider(startTime){
 	var dFrom = startTime.split("-");

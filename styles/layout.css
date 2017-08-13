@@ -12,7 +12,7 @@ body {
 	overflow:hidden;
 }
 
-body>div {
+body > div {
 	height: 100vh;
 	overflow:hidden;
 }
@@ -166,75 +166,12 @@ h1 {
 
 
 #tiles img {
-	opacity: 1;
-	width: 14.2857%;
-	float: left;
+	opacity: 0;
+	position: fixed;
+	bottom: 0;
 	margin-bottom: 20px;
 	box-shadow: 0em 0em 0.5em 0.1em #fff;
 }
-
-
-/* ---- Tiles StartUp ---- */
-/*
-#tiles {
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	width: 100%;
-	height:100%;
-	z-index:105;
-	background-color: #4c4f54;
-	opacity: 1;
-	transition: all 3s ease-out, opacity 4s ease-out;
-}
-#tilesMin {
-	position:fixed;
-	top:90vh;
-	left:0;
-	right:0;
-	bottom:0;
-	width: 100%;
-	height:10vh;
-	z-index:105;
-	background-color: #4c4f54;
-	opacity: 0;
-	transition: all 3s ease-out, opacity 4s ease-out;
-}
-.imageTiles {
-	position: absolute;
-	width: 100%;
-	height:70%;
-	top:15%;
-	left:0;
-	right:0;
-	bottom:15%;
-	opacity:0.2;
-	transition: all .9s ease-out;
-}
-.imageTilesMin {
-	position: relative;
-	float:left;
-	width: 14.2857%;
-	height:100%;
-	top:0;
-	bottom:0;
-	opacity:1;
-	transition: all .9s ease-out;
-	
-}
-
-*/
-
-
-
-
-
-
-
-
-
 
 /*---------------------------
 		SLIDER

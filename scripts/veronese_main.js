@@ -15,27 +15,8 @@ function init() {
 	} else {
 		prepareCarousel();
 	}
-	
-	hideTiles();
-
+	assignTiles();
 }
-
-function hideTiles(){
-	$("#tiles img").each(function() {
-		$(this).animate({
-			opacity:"0"
-		}, 800);
-	});
-}
-
-function hideSelectedTiles(){
-	$("#tiles img").each(function() {
-		$(this).animate({
-			opacity:"0"
-		}, 500);
-	});
-}
-
 
 function prepareCarousel() {
 	if (!(jsonContent instanceof Array)) {
@@ -97,14 +78,7 @@ function returnJSONdata(data) {
 }
 
 function createHTMLslide(carousel, dataobject) {
-		/*
-slide	<div id="Slide03" class="carousel">
--slideTitle //stays on top
--slideWrapper //wrapper to hide scrollbar
- -slideContainer //actual content
-  -slideContainerImages
-  -slideContainerText
-				</div>*/
+
 	var slide = document.createElement("div");
 	var number = ("0" + dataobject.id).slice(-2); //padding of a leading zero
 	slide.id = "Slide" + number;
@@ -211,13 +185,7 @@ function updateCarousel(activeSlides) {
 	//simple version, show the first item in the list. If List is empty, do not change anything
 	if (currentSlide != activeSlides[0]) {
 		currentSlide = activeSlides[0];
-
 		redrawCarousel();
-		
-		$('#tile_' +currentSlide).animate({
-			opacity: 1,
-		}, 500);
-		hideSelectedTiles();
 	}
 }
 function nextSlide() {
@@ -225,24 +193,18 @@ function nextSlide() {
 		currentSlide++;
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
+		resizeTiles();
+		setTimeout(hideTiles, 200);
 	}
-	
-	$('#tile_' +currentSlide).animate({
-		opacity: 1,
-	}, 500);
-	hideSelectedTiles();
 }
 function prevSlide() {
 	if (currentSlide > 1) {
 		currentSlide--;
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
+		resizeTiles();
+		setTimeout(hideTiles, 200);
 	}
-	
-	$('#tile_' +currentSlide).animate({
-		opacity: 1,
-	}, 500);
-	hideSelectedTiles();
 }
 
 function toggleOverview() {
