@@ -64,6 +64,8 @@ $.getJSON("data.json", function(json) {
 });
 
 $(document).ready(function() {	 
+	var click = false;
+	
 	$("#slider").bind("valuesChanging", function(e, data){
 		var activeValues = [];
 		jsonContent.forEach(
@@ -102,9 +104,6 @@ $(document).ready(function() {
 		currentSlide = parseInt(id);
 		redrawCarousel();
 	});
-	
-	var click = false;
-	
 	
 	// Mouse + Touch Functionality Tiles
 	$('#slider .ui-rangeSlider-bar').on('mousedown touchstart', function(){
@@ -175,9 +174,8 @@ function assignTiles(){
 function setTimeSlider(startTime){
 	var dFrom = startTime.split("-");
 	var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
-	dateBegin = dateBegin.addDays(40);
-	console.log(dateBegin);
-	var dateEnd = dateBegin.addDays(28);
+	dateBegin = dateBegin.addDays(10);
+	var dateEnd = dateBegin.addDays(40);
 	$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
 }
 
