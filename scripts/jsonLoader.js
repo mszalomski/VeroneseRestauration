@@ -104,9 +104,9 @@ $(document).ready(function() {
 		currentSlide = parseInt(id);
 		redrawCarousel();
 	});
-	
+
 	// Mouse + Touch Functionality Tiles
-	$('#slider .ui-rangeSlider-bar').on('mousedown touchstart', function(){
+	$('#slider').on('mousedown touchstart', function(){
 		click = true;
 		resizeTiles();
 	});
