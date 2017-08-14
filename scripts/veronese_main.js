@@ -61,13 +61,21 @@ function init() {
 	assignTiles();
 }
 
+/**
+ * Callback function, to be called from jsonLoader.js after data.json has been read
+ * and processed
+ * @param data	array of stuctures that contains all information about the processes, including image paths and text
+ */
+function returnJSONdata(data) {
+	jsonContent = data;
+	initialized = true;
+}
 
 /**
  * create all elements of the application
- * There is one large DIV, which exeeds screen space by far, to enable horizontal scrolling
+ * There is one large DIV, which exceeds screen space by far, to enable horizontal scrolling
  * This largeContainer contains smaller DIV, from which everyone fits exactly screen width
  * every of this smaller DIV has vertical scrolling too
- * 
  */
 function prepareCarousel() {
 	if (!(jsonContent instanceof Array)) {
@@ -115,18 +123,20 @@ function prepareCarousel() {
 			//retrieve element from json array
 			if (jsonContent[j].id == i) dataobject = jsonContent[j];
 		}
-		if (dataobject != null) createHTMLslide(carousel, dataobject);
+		if (dataobject != null) createHTMLslide(dataobject);
 	}
 	redrawCarousel();
 }
 
-function returnJSONdata(data) {
-	jsonContent = data;
-	initialized = true;
-}
-
-function createHTMLslide(carousel, dataobject) {
-
+/**
+ * subroutine of perpareCarousel()
+ * gets called for every process/slide
+ * Creates a DIV container inside the largeContainer, which is automatically positioned (float left) right to the last one.
+ * Contains additional DIV containers for title and content, which itself is wrapped in another div to hide the scrollbar 
+ * and allow invisible scrolling
+ * @param dataobject	specific array element of the global jsonContent
+ */
+function createHTMLslide(dataobject) {
 	var slide = document.createElement("div");
 	var number = ("0" + dataobject.id).slice(-2); //padding of a leading zero
 	slide.id = "Slide" + number;
@@ -191,6 +201,12 @@ function createHTMLslide(carousel, dataobject) {
 	overviewContainer.appendChild(overviewImage);
 }
 
+/**
+ * gets called every time when a new slide should be shown
+ * moves the largeContainer to appropriate position (animated by css) and
+ * sets matching overview image to active
+ * enables or disables the left and right scroll buttons
+ */
 function redrawCarousel() {
 	for (var i=1; i <= maxSlides; i++) {
 		var number = ("0" + i).slice(-2); //padding of a leading zero
@@ -228,14 +244,23 @@ function redrawCarousel() {
 	largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4)).toString() + "vw";
 }
 
-//move carousel to corresponding slide, if timeline-slider is moved
+/**
+ * Callback-function for jsonLoader.js
+ * move to the given process
+ * @param activeSlides	array of slide-numbers, only first item will be used
+ */
 function updateCarousel(activeSlides) {
-	//simple version, show the first item in the list. If List is empty, do not change anything
-	if (currentSlide != activeSlides[0]) {
-		currentSlide = activeSlides[0];
+	var newSlide = (isArray(activeSlides) && (activeSlides[0] > 0) && (activeSlides[0] <= maxSlides)) ? activeSlides[0] : currentSlide;
+	if (currentSlide != newSlide) {
+		currentSlide = newSlide;
 		redrawCarousel();
 	}
 }
+
+/**
+ * Callback function for the large button on the right side
+ * update timeLine as well
+ */
 function nextSlide() {
 	if (currentSlide < maxSlides) {
 		currentSlide++;
@@ -245,6 +270,11 @@ function nextSlide() {
 		setTimeout(hideTiles, 200);
 	}
 }
+
+/**
+ * Callback function for the large button on the left side
+ * update timeline as well
+ */
 function prevSlide() {
 	if (currentSlide > 1) {
 		currentSlide--;
@@ -255,6 +285,10 @@ function prevSlide() {
 	}
 }
 
+/**
+ * maximize or minimize the overview image, which is located in the upper right corner if minimized.
+ * function gets called onClick on overview-Image or if clicked elsewhere while image is maximized
+ */ 
 function toggleOverview() {
 	var maindiv = document.getElementById("maindiv");
 	if (overviewEnlarged) {
@@ -269,21 +303,3 @@ function toggleOverview() {
 		largeSlideContainer.style.top = "85vh";
 	}
 }
-
-//only for debugging, shall be replaced by gesture or buttons etc
-$(document).keydown(function(e) {
-	//this function rotates the carousel
-	switch(e.which) {
-		case 27: //es
-			if (overviewEnlarged) toggleOverview();
-			break;
-		case 37: // left
-			prevSlide();
-			break;
-		case 39: // right
-			nextSlide()
-			break;
-		default: return; // exit this handler for other keys
-	}
-	e.preventDefault(); // prevent the default action (scroll / move caret)
-});
