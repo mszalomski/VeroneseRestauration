@@ -158,6 +158,7 @@ function createHTMLslide(dataobject) {
 	slideWrapper.appendChild(slideContainer);
 	
 	var contentTable = document.createElement("table");
+	slideContainer.appendChild(contentTable);
 	contentTable.style.width = "100%";
 	var firstRow = contentTable.insertRow();
 	var imageColumn = firstRow.insertCell();
@@ -181,17 +182,15 @@ function createHTMLslide(dataobject) {
 		imageCell.className = "image_cell";
 		
 		var textCell = row.insertCell();
-		textCell.innerHTML = $.ajax({
-			type: "GET",
-			url: "content/" + dataobject.images[i] + ".html",
-			async: false
-		}).responseText;
+		var cellId = "c" + (dataobject.id * 100 + i);
+		var cellUrl = "content/" + dataobject.images[i] + ".html";
+		textCell.id = cellId;
+		$("#"+cellId).load(cellUrl);
 	}
 	var emptyRow = contentTable.insertRow();
 	var cell1 = emptyRow.insertCell();
 	cell1.style.height = "5vh";
 	var cell2 = emptyRow.insertCell();
-	slideContainer.appendChild(contentTable);
 	
 	var overviewImage = document.createElement("img");
 	overviewImage.src = "images/overview/" + dataobject.overview;
@@ -250,7 +249,7 @@ function redrawCarousel() {
  * @param activeSlides	array of slide-numbers, only first item will be used
  */
 function updateCarousel(activeSlides) {
-	var newSlide = (isArray(activeSlides) && (activeSlides[0] > 0) && (activeSlides[0] <= maxSlides)) ? activeSlides[0] : currentSlide;
+	var newSlide = (Array.isArray(activeSlides) && (activeSlides[0] > 0) && (activeSlides[0] <= maxSlides)) ? activeSlides[0] : currentSlide;
 	if (currentSlide != newSlide) {
 		currentSlide = newSlide;
 		redrawCarousel();
