@@ -1,11 +1,54 @@
+/**
+ * This script handles creating of canvas and 
+ * all interaction except timeline
+ * @author Robert Menger
+ */
+
+ 
+/**
+ * stores the number of the actual visible information-slide in the main area
+ */
 var currentSlide = 3;
+
+/**
+ * how many slides are totally available? will be determined during loading of data.json
+ * though jsonLoader.js, returning data to this script
+ */
 var maxSlides = 5;
+
+/**
+ * Pointer to the DOM-object, containing all slides
+ * this object is much larger than actual screen width, to allow horizontal movement
+ */
 var largeSlideContainer = null;
+
+/**
+ * data.json is loaded asychrounously, this variable indicates, if data is already
+ * cached
+ */
 var initialized = false;
+
+/**
+ * the actual data, loaded from data.json trough jsonLoader.js
+ */
 var jsonContent = null;
+
+/**
+ * Pointer to DOM-object containing the overview images in the upper right corner
+ */
 var overviewContainer = null;
+
+/**
+ * current state of the overview image, if its enlarge to full screen width or 
+ * minimized to the upper corner
+ */
 var overviewEnlarged = false;
 
+
+/**
+ * will be called on body onLoad
+ * draw the canvas after data is loaded and call timeline initializer afterwards
+ */
 function init() {
 	if (!initialized) {
 		//wait until json loader is ready
@@ -18,9 +61,17 @@ function init() {
 	assignTiles();
 }
 
+
+/**
+ * create all elements of the application
+ * There is one large DIV, which exeeds screen space by far, to enable horizontal scrolling
+ * This largeContainer contains smaller DIV, from which everyone fits exactly screen width
+ * every of this smaller DIV has vertical scrolling too
+ * 
+ */
 function prepareCarousel() {
 	if (!(jsonContent instanceof Array)) {
-		alert("missing JSON data");
+		alert("An error occured during loading of this application. data.json cannot be loaded, maybe the request was blocked by client or the file is missing or corrupted?");
 		console.log("JSON CANNOT BE LOADED, XMLhttp request blocked?");
 		return;
 	}
