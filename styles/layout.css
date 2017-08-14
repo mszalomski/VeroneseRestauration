@@ -40,12 +40,12 @@ h1 {
 	margin: 1em 0em;
 }
 #box_carousel {
-	background: url("background_wood.jpg");
-    background-size: 50vw 50vh;
+	background: url("background_greek.jpg");
+    background-size: 100vw 85vh;
     background-repeat: repeat;
 	color: #eee;
 	width: 100%;
-	height: 90%;
+	height: 94%;
 	overflow: hidden;
 }
 #box_slider {
