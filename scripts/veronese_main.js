@@ -78,6 +78,12 @@ function init() {
 		prepareCarousel();
 	}
 	assignTiles();
+	
+	var mainBox = document.getElementById("box_carousel");
+	mainBox.addEventListener("touchstart", touchHandleStart, false);
+	mainBox.addEventListener("touchmove", touchHandleMove, false);
+	mainBox.addEventListener("touchend", touchHandleEnd, false);
+	mainBox.addEventListener("touchcancel", touchHandleEnd, false);
 }
 
 /**
@@ -284,8 +290,6 @@ function nextSlide() {
 		currentSlide++;
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
-		resizeTiles();
-		setTimeout(hideTiles, 200);
 	}
 }
 
@@ -298,8 +302,6 @@ function prevSlide() {
 		currentSlide--;
 		redrawCarousel();
 		setTimeSlider(jsonContent[currentSlide-1].start_time);
-		resizeTiles();
-		setTimeout(hideTiles, 200);
 	}
 }
 
@@ -352,17 +354,14 @@ function scrollHorizontally(e) {
 	} else {
 		//convert pixel to percent of screen width
 		var horizontalRelMov = Math.round((horizontalMovement / window.innerWidth) * 100);
-		if (horizontalRelMov < -40) {
+		if (horizontalRelMov < -40 || horizontalRelMov > 40) {
 			mouseWheelLastTime = 0.0;
 			horizontalMovement = 0;
-			nextSlide();
-			return;
-		}
-		if (horizontalRelMov > 40) {
-			mouseWheelLastTime = 0.0;
-			horizontalMovement = 0;
-			prevSlide();
-			return;
+			if (horizontalRelMov < 0) {
+				nextSlide();
+			} else {
+				prevSlide();
+			}
 		}
 		largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4) + horizontalRelMov).toString() + "vw";
 		timeoutHandle = window.setTimeout( resetHorizontalScroll, mouseWheelTimeout);
@@ -372,3 +371,50 @@ function scrollHorizontally(e) {
 window.addEventListener("mousewheel", scrollHorizontally, false);
 // Firefox
 window.addEventListener("DOMMouseScroll", scrollHorizontally, false);
+//for android touch input
+
+
+var start = {x:0,y:0};
+var offset = {x:0,y:0};
+var ignoreFurtherTouchInput = false; //as long as css scrolls website, ignore all touch inputs, because they are incorrect during animation
+
+function touchHandleStart(e) {
+	start.x = e.touches[0].pageX;
+	start.y = e.touches[0].pageY;
+	window.clearTimeout(timeoutHandle);
+}
+function touchHandleMove(e) {
+	if (ignoreFurtherTouchInput) return;
+	offset.x = start.x - e.touches[0].pageX;
+	offset.y = start.y - e.touches[0].pageY;
+	horizontalMovement = -offset.x;
+	
+	//if (horizontalMovement > -10 && horizontalMovement < 10) return;
+	//e.preventDefault();
+	
+	if (((currentSlide == 1) && (horizontalMovement > 0)) || ((currentSlide == maxSlides) && (horizontalMovement < 0))) {
+		horizontalMovement = 0;
+		resetHorizontalScroll();
+	} else {
+		//convert pixel to percent of screen width
+		var horizontalRelMov = Math.round((horizontalMovement / window.innerWidth) * 100);
+		if (horizontalRelMov < -40 || horizontalRelMov > 40) {
+			horizontalMovement = 0;
+			ignoreFurtherTouchInput = true;
+			setTimeout(function() { ignoreFurtherTouchInput = false; }, 1000);
+			if (horizontalRelMov < 0) {
+				nextSlide();
+			} else {
+				prevSlide();
+			}
+			return;
+		}
+		largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4) + horizontalRelMov).toString() + "vw";
+	}
+}
+function touchHandleEnd(e) {
+	start = {x:0,y:0};
+	offset = {x:0,y:0};
+	timeoutHandle = window.setTimeout( resetHorizontalScroll, mouseWheelTimeout);
+}
+
