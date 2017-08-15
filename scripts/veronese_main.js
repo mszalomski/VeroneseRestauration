@@ -44,6 +44,25 @@ var overviewContainer = null;
  */
 var overviewEnlarged = false;
 
+/**
+ * stores the last time an mousewheel event was fired. Used to determine if page should flip back
+ */
+var mouseWheelLastTime = 0.0;
+
+/**
+ * as long as last mousewheel event is inside threshold, increment movement of largeContainer
+ */
+var horizontalMovement = 0;
+
+/**
+ * store reference to timeout, to clear it if next mousewheel event is inside threshold
+ */
+var timeoutHandle = null;
+
+/**
+ * mousewheel timeout threshold in milliseconds, after this time page flips back to default position
+ */
+var mouseWheelTimeout = 1000;
 
 /**
  * will be called on body onLoad
@@ -302,3 +321,54 @@ function toggleOverview() {
 		largeSlideContainer.style.top = "85vh";
 	}
 }
+
+/**
+ * after a timeout, reset the largeContainer to default Position, if no mousewheel action occured
+ * this method is called as callback from setTimeout
+ */
+function resetHorizontalScroll() {
+	largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4) ).toString() + "vw";
+	mouseWheelLastTime = 0.0;
+	horizontalMovement = 0;
+}
+
+/**
+ * Callback-function, called on mousewheel event
+ * use horizontal scroll of wheel for page flipping, tableTop like MS surface will send mousewheel event on drag of any kind
+ * @param e		DOM event
+ */
+function scrollHorizontally(e) {
+	e = window.event || e;
+	if (e.wheelDeltaX == 0) return; //dont do anything if no horizontal scroll occured, because this routine gets called for every vertical scroll too
+	
+	if ((e.timeStamp - mouseWheelLastTime) < mouseWheelTimeout) {
+		window.clearTimeout(timeoutHandle);
+	}
+	mouseWheelLastTime = e.timeStamp;
+	horizontalMovement += e.wheelDeltaX;
+	if (((currentSlide == 1) && (horizontalMovement > 0)) || ((currentSlide == maxSlides) && (horizontalMovement < 0))) {
+		horizontalMovement = 0;
+		resetHorizontalScroll();
+	} else {
+		//convert pixel to percent of screen width
+		var horizontalRelMov = Math.round((horizontalMovement / window.innerWidth) * 100);
+		if (horizontalRelMov < -40) {
+			mouseWheelLastTime = 0.0;
+			horizontalMovement = 0;
+			nextSlide();
+			return;
+		}
+		if (horizontalRelMov > 40) {
+			mouseWheelLastTime = 0.0;
+			horizontalMovement = 0;
+			prevSlide();
+			return;
+		}
+		largeSlideContainer.style.left = ( (currentSlide-1) * (-92 - 4) + horizontalRelMov).toString() + "vw";
+		timeoutHandle = window.setTimeout( resetHorizontalScroll, mouseWheelTimeout);
+	}
+}
+// IE9, Chrome, Safari, Opera
+window.addEventListener("mousewheel", scrollHorizontally, false);
+// Firefox
+window.addEventListener("DOMMouseScroll", scrollHorizontally, false);
