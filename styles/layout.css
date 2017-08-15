@@ -218,13 +218,20 @@ h1 {
 	padding-top: 35px;
 }
 #slider .ui-rangeSlider-bar {
-	top: 30px !important;
-	background: #FFD700;
+	top: 40px !important;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 50%, 
+	rgba(0, 0, 0, 0) 50%, 
+	rgba(0, 0, 0, 0) 0px) 0% 0% / 15px repeat padding-box border-box rgb(255, 215, 0);
+	background-repeat: repeat;
 	height: 29px;
-	width: 150px !important;
+	width: 200px !important;
 	opacity: 0.5;
 	z-index: 2;
-	border-radius: 0;
+	border: 1px solid #252525;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
 }
 #slider .ui-rangeSlider-bar:before {
 	content:'';
@@ -281,7 +288,11 @@ h1 {
     color: #fff;
     padding-top: 6px;
 	background: #423222;
-	border-radius: 0;
+	border: 1px solid #252525;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
 }
 
 #disabled_sliders {

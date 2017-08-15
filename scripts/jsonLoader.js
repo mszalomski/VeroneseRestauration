@@ -93,15 +93,27 @@ $(document).ready(function() {
 		);
 		updateCarousel(activeValues);
 	});
-	// click / touch on a time bar
-	$(".bar").on("click touchstart", function(){ 
-		var elemId = this.id;
-		var id = elemId.substr(elemId.indexOf("_") + 1);
-		var startTime = jsonContent[id - 1].start_time;
-		setTimeSlider(startTime);
-		currentSlide = parseInt(id);
-		redrawCarousel();
-	});
+	// click / touchstart events for time bars
+	// firefox makes problems at creating touch events for dynamically created elements
+	if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+     	$(".bar").on("click touchstart", function(){ 
+			var elemId = this.id;
+			var id = elemId.substr(elemId.indexOf("_") + 1);
+			var startTime = jsonContent[id - 1].start_time;
+			setTimeSlider(startTime);
+			currentSlide = parseInt(id);
+			redrawCarousel();
+		});
+	} else {
+		$(".bar .slider_bar").on("click touchstart", function(){ 
+			var elemId = this.id;
+			var id = elemId.substr(elemId.indexOf("_") + 1);
+			var startTime = jsonContent[id - 1].start_time;
+			setTimeSlider(startTime);
+			currentSlide = parseInt(id);
+			redrawCarousel();
+		});
+	}
 	// mousedown / touchstart event on movable slider
 	$('#slider').on('mousedown touchstart', function(){
 		click = true;
