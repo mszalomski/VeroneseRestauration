@@ -95,8 +95,8 @@ $(document).ready(function() {
 		);
 		updateCarousel(activeValues);
 	});
-	
-	$(".slider_bar").on("click", function(){ 
+		
+	$(".slider_bar").on("click touchstart", function(){ 
 		var elemId = this.id;
 		var id = elemId.substr(elemId.indexOf("_") + 1);
 		var startTime = jsonContent[id - 1].start_time;
