@@ -1,13 +1,19 @@
-// JSON DATA
+/**
+ * This script handles creating of the timeline/tiles.
+ * It also defines callback funtions for possible interactions with
+ * created elements.
+ * @author Marcin Szalomski
+ */
+
+/**
+ * reads the data from data.json and creates movable timeslider
+ * and static time bars.
+ */
 $.getJSON("data.json", function(json) {
-	
 	returnJSONdata(json);
-	
-	
-	// Insert Timer Divs
 	for(var i = 0; i < json.length; i++) {
+		// time bars
 		$("#disabled_sliders").append('<div id="timer_' +i +'" class="timer"></div>');
-		
 		var disabledSlider = $('#timer_' +i).dateRangeSlider({
 			enabled: false,
 			arrows: false,
@@ -20,21 +26,14 @@ $.getJSON("data.json", function(json) {
 				max: new Date(json[i].end_time.split("-")[0], parseInt(json[i].end_time.split("-")[1]) - 1, json[i].end_time.split("-")[2])
 			}
 		});
-		
 		var childContainer = disabledSlider[0].childNodes[0];
-		
 		var bar = childContainer.getElementsByClassName("ui-rangeSlider-bar")[0];
-
 		bar.id = (i+1);
-		
 		bar.innerHTML = json[i].title_short;
-		
 		bar.className += ' slider_bar';
-
 		$('#bar_'+(i+1)).append(bar);	
 	}
-	
-	// SLIDER
+	// movable time slider
 	$("#slider").dateRangeSlider(
 	{
 		arrows: false,
@@ -56,15 +55,15 @@ $.getJSON("data.json", function(json) {
 			min: {days: 30}
 		}
 	});
-
-	// END SLIDER
-	
-// END JSON DATA
 });
 
+/**
+ * adds touch events and callbacks for the time slider 
+ * and time bars
+ */
 $(document).ready(function() {	 
 	var click = false;
-	
+	// moving of the time slider
 	$("#slider").bind("valuesChanging", function(e, data){
 		var activeValues = [];
 		jsonContent.forEach(
@@ -94,7 +93,7 @@ $(document).ready(function() {
 		);
 		updateCarousel(activeValues);
 	});
-	
+	// click / touch on a time bar
 	$(".bar").on("click touchstart", function(){ 
 		var elemId = this.id;
 		var id = elemId.substr(elemId.indexOf("_") + 1);
@@ -103,25 +102,28 @@ $(document).ready(function() {
 		currentSlide = parseInt(id);
 		redrawCarousel();
 	});
-
-	// Mouse + Touch Functionality Tiles
+	// mousedown / touchstart event on movable slider
 	$('#slider').on('mousedown touchstart', function(){
 		click = true;
 		resizeTiles();
 	});
-	
+	// moving the time slider
 	$(document).on('mousemove touchmove', function(){
 		if(click == false) 
 			return;
 		resizeTiles();
 	});
-
+	// mouseup / touchend event on movable slider
 	$(document).on('mouseup touchend', function(){
 		click = false;
 		hideTiles();
 	});
 });
-
+/**
+ * Callback-function, called on mousedown touchstart / mousemove touchmove events
+ * for the time slider.
+ * Checks for active slides, adjusts the opacity and the size of shown tiles.
+ */
 function resizeTiles(){
 	$("#tiles img").each(function(index, element) {
 		if((index + 1) == (currentSlide - 1) || (index + 1) == (currentSlide +1)){
@@ -150,7 +152,11 @@ function resizeTiles(){
 		}
 	});
 }
-
+/**
+ * Callback-function, called on mouseup / touchend events
+ * for the time slider.
+ * Hides all tiles.
+ */
 function hideTiles(){
 	$("#tiles img").each(function(index, element) {
 		$(element).animate({
@@ -158,18 +164,25 @@ function hideTiles(){
 		}, 250);
 	});	
 }
-
+/**
+ * Function to assign the positions for the time bars.
+ * Started at init.
+ */
 function assignTiles(){
 	var tilesNr = $("#tiles img").length;
 	var width = 100 / tilesNr;
-	
 	$("#tiles img").each(function(index, element) {
 		var left = index * width;
 		$(element).css("width", width +'%');
 		$(element).css("left", left +'%');
 	});
 }
-
+/**
+ * Callback-function, called on mouseup / touchend events
+ * for time bars. Reads out the date from the time bar and
+ * adjusts the movable slider. 
+ * @param startTime		Date in the "yyyy-mm-dd" format
+ */
 function setTimeSlider(startTime){
 	var dFrom = startTime.split("-");
 	var dateBegin = new Date(dFrom[0], parseInt(dFrom[1])-1, dFrom[2]);
@@ -177,7 +190,11 @@ function setTimeSlider(startTime){
 	var dateEnd = dateBegin.addDays(40);
 	$("#slider").dateRangeSlider("values", dateBegin, dateEnd);
 }
-
+/**
+ * Helper function to add days to a given Date-type object
+ * @param days		Amount of days to add to the date
+ *
+ */
 Date.prototype.addDays = function(days) {
 	var dat = new Date(this.valueOf());
 	dat.setDate(dat.getDate() + days);
