@@ -24,15 +24,14 @@ $.getJSON("data.json", function(json) {
 		var childContainer = disabledSlider[0].childNodes[0];
 		
 		var bar = childContainer.getElementsByClassName("ui-rangeSlider-bar")[0];
-		
 
-		
 		bar.id = (i+1);
 		
 		bar.innerHTML = json[i].title_short;
 		
 		bar.className += ' slider_bar';
-		$("#bars").append(bar);	
+
+		$('#bar_'+(i+1)).append(bar);	
 	}
 	
 	// SLIDER
@@ -95,8 +94,8 @@ $(document).ready(function() {
 		);
 		updateCarousel(activeValues);
 	});
-		
-	$(".slider_bar").on("click touchstart", function(){ 
+	
+	$(".bar").on("click touchstart", function(){ 
 		var elemId = this.id;
 		var id = elemId.substr(elemId.indexOf("_") + 1);
 		var startTime = jsonContent[id - 1].start_time;
