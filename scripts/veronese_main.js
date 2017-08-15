@@ -389,9 +389,6 @@ function touchHandleMove(e) {
 	offset.y = start.y - e.touches[0].pageY;
 	horizontalMovement = -offset.x;
 	
-	//if (horizontalMovement > -10 && horizontalMovement < 10) return;
-	//e.preventDefault();
-	
 	if (((currentSlide == 1) && (horizontalMovement > 0)) || ((currentSlide == maxSlides) && (horizontalMovement < 0))) {
 		horizontalMovement = 0;
 		resetHorizontalScroll();
