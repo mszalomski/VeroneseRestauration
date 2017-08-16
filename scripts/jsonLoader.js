@@ -141,25 +141,25 @@ function resizeTiles(){
 		if((index + 1) == (currentSlide - 1) || (index + 1) == (currentSlide +1)){
 			$(element).css({
 				opacity: '1',
-				height: '120px'
+				height: '100px'
 			});
 		}
 		else if((index + 1) == (currentSlide - 2) || (index + 1) == (currentSlide +2)){
 			$(element).css({
 				opacity: '1',
-				height: '80px'
+				height: '60px'
 			});
 		}
 		else if((index + 1) == (currentSlide)){
 			$(element).css({
 				opacity: '1',
-				height: '180px'
+				height: '140px'
 			});
 		}
 		else {
 			$(element).css({
 				opacity: '0',
-				height: '180px'
+				height: '140px'
 			});
 		}
 	});
