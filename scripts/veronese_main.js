@@ -73,9 +73,13 @@ function init() {
 		//wait until json loader is ready
 		setTimeout(function() {
 			prepareCarousel();
+			setTimeout(toggleOverview, 20);
+			setTimeout(toggleOverview, 1500);
 		}, 500);
 	} else {
 		prepareCarousel();
+		setTimeout(toggleOverview, 20);
+		setTimeout(toggleOverview, 1500);
 	}
 	assignTiles();
 	
