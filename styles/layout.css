@@ -20,7 +20,7 @@ p {
 	margin-left: 2em;
 	margin-bottom: 0;
 	padding: 1em;
-	text-indent: 2em;
+	text-indent: 0em;
 	text-align: justify;
 	background-color: #423222;
 	border-radius: 0.1vh;
@@ -40,9 +40,10 @@ h1 {
 	margin: 1em 0em;
 }
 #box_carousel {
-	background: url("background_greek.jpg");
+	background: #4c4f54;
+	/*background: url("background_greek.jpg");
     background-size: 100vw 85vh;
-    background-repeat: repeat;
+    background-repeat: repeat;*/
 	color: #eee;
 	width: 100%;
 	height: 93%;
