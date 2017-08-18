@@ -37,7 +37,7 @@ var jsonContent = null;
  * Pointer to DOM-object containing the overview images in the upper right corner
  */
 var overviewContainer = null;
-
+var overviewCloseBtn = null;
 /**
  * current state of the overview image, if its enlarge to full screen width or 
  * minimized to the upper corner
@@ -118,7 +118,17 @@ function prepareCarousel() {
 	overviewContainer = document.createElement("div");
 	overviewContainer.id = "overview_small";
 	overviewContainer.onclick = toggleOverview;
+	overviewCloseBtn = document.createElement("img");
+	overviewCloseBtn.src = "closeButton.png";
+	overviewCloseBtn.id = "closeButton";
+	overviewCloseBtn.onclick = toggleOverview;
+	var homeButton = document.createElement("img");
+	homeButton.src = "homeButton.png";
+	homeButton.id = "homeButton";
+	homeButton.onclick = function() { location.href = "index.html"; };
 	document.body.appendChild(overviewContainer);
+	maindiv.appendChild(overviewCloseBtn);
+	maindiv.appendChild(homeButton);
 	
 	var leftButton = document.createElement("div");
 	var leftArrow = document.createElement("img");
@@ -321,12 +331,12 @@ function toggleOverview() {
 	if (overviewEnlarged) {
 		overviewContainer.id = "overview_small";
 		overviewEnlarged = false;
-		maindiv.onclick = function() { return false; };
+		overviewCloseBtn.style.visibility = "hidden";
 		largeSlideContainer.style.top = "0";
 	} else {
 		overviewContainer.id = "overview_large";
 		overviewEnlarged = true;
-		maindiv.onclick = toggleOverview;
+		setTimeout(function() {overviewCloseBtn.style.visibility = "visible";}, 700 );
 		largeSlideContainer.style.top = "85vh";
 	}
 }
