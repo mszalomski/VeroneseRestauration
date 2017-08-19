@@ -85,6 +85,14 @@ h1 {
 	z-index: 101;
 	cursor: pointer;
 }
+#magnificationButton {
+	position: absolute;
+	width: 2vw;
+	height: 2vw;
+	top:4vh;
+	right: 7vw;
+	z-index: 102;
+}
 #homeButton {
 	position: fixed;
 	width: 2vw;

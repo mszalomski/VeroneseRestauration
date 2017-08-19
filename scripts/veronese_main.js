@@ -38,6 +38,8 @@ var jsonContent = null;
  */
 var overviewContainer = null;
 var overviewCloseBtn = null;
+var overviewMagnificationImg = null;
+
 /**
  * current state of the overview image, if its enlarge to full screen width or 
  * minimized to the upper corner
@@ -73,13 +75,9 @@ function init() {
 		//wait until json loader is ready
 		setTimeout(function() {
 			prepareCarousel();
-			setTimeout(toggleOverview, 20);
-			setTimeout(toggleOverview, 1500);
 		}, 500);
 	} else {
 		prepareCarousel();
-		setTimeout(toggleOverview, 20);
-		setTimeout(toggleOverview, 1500);
 	}
 	assignTiles();
 	
@@ -88,6 +86,8 @@ function init() {
 	mainBox.addEventListener("touchmove", touchHandleMove, false);
 	mainBox.addEventListener("touchend", touchHandleEnd, false);
 	mainBox.addEventListener("touchcancel", touchHandleEnd, false);
+	
+	//no context menu, neither right click or two-finger tap
 	document.body.addEventListener('contextmenu', function(ev) {
 		ev.preventDefault();
 		return false;}, false);
@@ -122,12 +122,18 @@ function prepareCarousel() {
 	overviewCloseBtn.src = "closeButton.png";
 	overviewCloseBtn.id = "closeButton";
 	overviewCloseBtn.onclick = toggleOverview;
+	overviewCloseBtn.style.visibility = "hidden";
+	overviewMagnificationImg = document.createElement("img");
+	overviewMagnificationImg.src = "magnificationGlass.png";
+	overviewMagnificationImg.id = "magnificationButton";
+	overviewMagnificationImg.onclick = toggleOverview;
 	var homeButton = document.createElement("img");
 	homeButton.src = "homeButton.png";
 	homeButton.id = "homeButton";
 	homeButton.onclick = function() { location.href = "index.html"; };
 	document.body.appendChild(overviewContainer);
 	maindiv.appendChild(overviewCloseBtn);
+	maindiv.appendChild(overviewMagnificationImg);
 	maindiv.appendChild(homeButton);
 	
 	var leftButton = document.createElement("div");
@@ -212,6 +218,10 @@ function createHTMLslide(dataobject) {
 		var cell1 = emptyRow.insertCell();
 		cell1.style.height = "5vh";
 		var cell2 = emptyRow.insertCell();
+		var imageAnchor = document.createElement("a");
+		imageAnchor.name = slide.id + "-" + i;
+		imageAnchor.id = slide.id + "-" + i;
+		cell1.appendChild(imageAnchor);
 		
 		var row = contentTable.insertRow();
 		var imageCell = row.insertCell();
@@ -220,6 +230,7 @@ function createHTMLslide(dataobject) {
 		imageElement.id = "img"+("0" + i).slice(-2);
 		imageElement.alt = dataobject.title;
 		imageElement.className = "image_active";
+		
 		imageCell.appendChild(imageElement);
 		imageCell.className = "image_cell";
 		
@@ -326,17 +337,36 @@ function prevSlide() {
  * maximize or minimize the overview image, which is located in the upper right corner if minimized.
  * function gets called onClick on overview-Image or if clicked elsewhere while image is maximized
  */ 
-function toggleOverview() {
+function toggleOverview(event) {
 	var maindiv = document.getElementById("maindiv");
+	var scrollTo = -1;
 	if (overviewEnlarged) {
+		if (currentSlide == 2 && event != null) {
+			//if clicked on POI on second slide (querschliff), move page down to appropriate image
+			var x = event.clientX;
+			var y = event.clientY;
+			if (x > 400 && x < 540 && y > 180 && y < 280) scrollTo = 0;
+			if (x > 735 && x < 800 && y > 640 && y < 680) scrollTo = 1;
+			if (x > 980 && x < 1190 && y > 460 && y < 800) scrollTo = 2;
+			if (x > 1400 && x < 1500 && y > 200 && y < 280) scrollTo = 2;
+			if (x > 1400 && x < 1500 && y > 480 && y < 560) scrollTo = 1;
+		}
 		overviewContainer.id = "overview_small";
 		overviewEnlarged = false;
 		overviewCloseBtn.style.visibility = "hidden";
+		setTimeout(function() {overviewMagnificationImg.style.visibility = "visible";}, 700 );
 		largeSlideContainer.style.top = "0";
+		if (scrollTo >= 0) {
+			var slideCon = document.getElementById("Slide02").getElementsByTagName("div")[1].getElementsByTagName("div")[0];
+			var anchor = document.getElementById("Slide02-" + scrollTo);
+			$(slideCon).scrollTop = $(anchor).offsetTop;
+			
+		}
 	} else {
 		overviewContainer.id = "overview_large";
 		overviewEnlarged = true;
 		setTimeout(function() {overviewCloseBtn.style.visibility = "visible";}, 700 );
+		overviewMagnificationImg.style.visibility = "hidden";
 		largeSlideContainer.style.top = "85vh";
 	}
 }
@@ -433,4 +463,5 @@ function touchHandleEnd(e) {
 	offset = {x:0,y:0};
 	timeoutHandle = window.setTimeout( resetHorizontalScroll, mouseWheelTimeout);
 }
+
 
