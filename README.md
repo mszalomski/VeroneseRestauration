@@ -41,8 +41,104 @@ Die Datei `veronese_main.js` hingegen ist grundlegend für die weitere Verarbeit
 
 ## Quellcode-Dokumentation
 
-TODO:
-- JavaDoc
+### veronese_main.js
+
+#### `var currentSlide = 3`
+stores the number of the actual visible information-slide in the main area
+
+#### `var maxSlides = 5`
+how many slides are totally available? will be determined during loading of data.json though jsonLoader.js, returning data to this script
+
+#### `var largeSlideContainer = null`
+Pointer to the DOM-object, containing all slides this object is much larger than actual screen width, to allow horizontal movement
+
+#### `var initialized = false`
+data.json is loaded asychrounously, this variable indicates, if data is already cached
+
+#### `var jsonContent = null`
+the actual data, loaded from data.json trough jsonLoader.js
+
+#### `var overviewContainer = null`
+Pointer to DOM-object containing the overview images in the upper right corner
+
+#### `var overviewEnlarged = false`
+current state of the overview image, if its enlarge to full screen width or minimized to the upper corner
+
+#### `var mouseWheelLastTime = 0.0`
+stores the last time an mousewheel event was fired. Used to determine if page should flip back
+
+#### `var horizontalMovement = 0`
+as long as last mousewheel event is inside threshold, increment movement of largeContainer
+
+#### `var timeoutHandle = null`
+store reference to timeout, to clear it if next mousewheel event is inside threshold
+
+#### `var mouseWheelTimeout = 1000`
+mousewheel timeout threshold in milliseconds, after this time page flips back to default position
+
+#### `function init()`
+will be called on body onLoad draw the canvas after data is loaded and call timeline initializer afterwards
+
+#### `function returnJSONdata(data)`
+Callback function, to be called from jsonLoader.js after data.json has been read and processed
+ * **Parameters:** `data` — of stuctures that contains all information about the processes, including image paths and text
+
+#### `function prepareCarousel()`
+create all elements of the application There is one large DIV, which exceeds screen space by far, to enable horizontal scrolling This largeContainer contains smaller DIV, from which everyone fits exactly screen width every of this smaller DIV has vertical scrolling too
+
+#### `function createHTMLslide(dataobject)`
+subroutine of perpareCarousel() gets called for every process/slide Creates a DIV container inside the largeContainer, which is automatically positioned (float left) right to the last one. Contains additional DIV containers for title and content, which itself is wrapped in another div to hide the scrollbar and allow invisible scrolling
+ * **Parameters:** `dataobject` — array element of the global jsonContent
+
+#### `function redrawCarousel()`
+gets called every time when a new slide should be shown moves the largeContainer to appropriate position (animated by css) and sets matching overview image to active enables or disables the left and right scroll buttons
+
+#### `function updateCarousel(activeSlides)`
+Callback-function for jsonLoader.js move to the given process
+ * **Parameters:** `activeSlides` — of slide-numbers, only first item will be used
+
+#### `function nextSlide()`
+Callback function for the large button on the right side update timeLine as well
+
+#### `function prevSlide()`
+Callback function for the large button on the left side update timeline as well
+
+#### `function toggleOverview(event)`
+maximize or minimize the overview image, which is located in the upper right corner if minimized. function gets called onClick on overview-Image or if clicked elsewhere while image is maximized
+
+#### `function resetHorizontalScroll()`
+after a timeout, reset the largeContainer to default Position, if no mousewheel action occured this method is called as callback from setTimeout
+
+#### `function scrollHorizontally(e)`
+Callback-function, called on mousewheel event use horizontal scroll of wheel for page flipping, tableTop like MS surface will send mousewheel event on drag of any kind
+ * **Parameters:** `e` — event
+
+ 
+### jsonLoader.js
+
+#### `$.getJSON("data.json", function(json)`
+reads the data from data.json and creates movable timeslider and static time bars.
+
+#### `$(document).ready(function()`
+adds touch events and callbacks for the time slider and time bars
+
+#### `function resizeTiles()`
+Callback-function, called on mousedown touchstart / mousemove touchmove events for the time slider. Checks for active slides, adjusts the opacity and the size of shown tiles.
+
+#### `function hideTiles()`
+Callback-function, called on mouseup / touchend events for the time slider. Hides all tiles.
+
+#### `function assignTiles()`
+Function to assign the positions for the time bars. Started at init.
+
+#### `function setTimeSlider(startTime)`
+Callback-function, called on mouseup / touchend events for time bars. Reads out the date from the time bar and adjusts the movable slider.
+ * **Parameters:** `startTime` — in the "yyyy-mm-dd" format
+
+#### `Date.prototype.addDays = function(days)`
+Helper function to add days to a given Date-type object
+ * **Parameters:** `days` — of days to add to the date
+
 
 ## Architektur
 
