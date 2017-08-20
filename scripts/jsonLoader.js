@@ -87,10 +87,9 @@ $(document).ready(function() {
 					if(activeValues.indexOf(value.id) !== -1){
 						activeValues.splice(activeValues.indexOf(value.id), 1);
 					}
-					
 				}
 			}
-		);
+		);			
 		updateCarousel(activeValues);
 	});
 	// click / touchstart events for time bars
@@ -119,50 +118,61 @@ $(document).ready(function() {
 		click = true;
 		resizeTiles();
 	});
+	
+	
 	// moving the time slider
 	$(document).on('mousemove touchmove', function(){
 		if(click == false) 
 			return;
 		resizeTiles();
 	});
+	
 	// mouseup / touchend event on movable slider
 	$(document).on('mouseup touchend', function(){
 		click = false;
 		hideTiles();
 	});
 });
+
 /**
  * Callback-function, called on mousedown touchstart / mousemove touchmove events
  * for the time slider.
  * Checks for active slides, adjusts the opacity and the size of shown tiles.
  */
 function resizeTiles(){
-	$("#tiles img").each(function(index, element) {
-		if((index + 1) == (currentSlide - 1) || (index + 1) == (currentSlide +1)){
-			$(element).css({
+	var dateValues = $("#slider").dateRangeSlider("values");
+	var dataMin = dateValues.min;
+	var dataMax = dateValues.max;
+	var dataAvg = new Date((dataMin.getTime() + dataMax.getTime()) / 2);
+
+	jsonContent.forEach(
+		function(value, i, array){
+			var dFrom = value.start_time.split("-");
+			var dTo = value.end_time.split("-");
+				
+			var dateFrom = new Date(dFrom[0], parseInt(dFrom[1]) -1 , dFrom[2]);
+			var dateTo = new Date(dTo[0], parseInt(dTo[1]) -1 , dTo[2]);
+			var dateAvg = new Date((dateFrom.getTime() + dateTo.getTime()) / 2);
+
+			if(dataAvg > dateAvg)
+				var diffDays = Math.round((dataAvg-dateAvg)/(1000*60*60*24));
+			if(dataAvg < dateAvg)
+				var diffDays = Math.round((dateAvg-dataAvg)/(1000*60*60*24));
+			if(dataAvg == dateAvg)
+				var diffDays = Math.round((dateAvg-dataAvg)/(1000*60*60*24));
+
+			var factor = 1 - (diffDays / 720);
+			var height = factor * 200;
+			var heightString = height.toString() + 'px';
+
+			var id = '#tile_' +((i+1).toString());
+	
+			$(id).css({
 				opacity: '1',
-				height: '100px'
+				height: heightString,
 			});
 		}
-		else if((index + 1) == (currentSlide - 2) || (index + 1) == (currentSlide +2)){
-			$(element).css({
-				opacity: '1',
-				height: '60px'
-			});
-		}
-		else if((index + 1) == (currentSlide)){
-			$(element).css({
-				opacity: '1',
-				height: '140px'
-			});
-		}
-		else {
-			$(element).css({
-				opacity: '0',
-				height: '140px'
-			});
-		}
-	});
+	);
 }
 /**
  * Callback-function, called on mouseup / touchend events
