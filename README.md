@@ -149,7 +149,7 @@ Mithilfe des Browsers als Client werden die Ressourcen letztlich abgerufen.
 
 ## Systemvoraussetzungen
 
-Die Anwendung läuft im Wesentlichen ohne Probleme unter den verbreitetsten Browsern Firefox, Chrome, Safari und Edge. Im Browser Chrome sollte das Feature `Overscroll history navigation` in den Entwickler-Einstellungen, einsehbar unter `chrome://flags/`, deaktiviert werden.
+Die Anwendung läuft im Wesentlichen ohne Probleme unter den verbreitetsten Browsern Firefox, Chrome und Edge. Im Browser Chrome sollte das Feature `Overscroll history navigation` in den Entwickler-Einstellungen, einsehbar unter `chrome://flags/`, deaktiviert werden.
 Dies verhindert ein unerwünschtes Zurücknavigieren zur Startseite nach einer horizontalen Wischgeste (mehr dazu in der Bedienungsanleitung, wo es um die Interaktionsmöglichkeiten der Anwendung geht). 
 Sollten andere Browser später ebenfalls Edgw-Swype Gesten unterstützen, welche ein Verlassen der Anwendung ermöglichen, sollten diese ebenfalls im jeweiligen Browser deaktiviert werden.
 
