@@ -143,15 +143,15 @@ Helper function to add days to a given Date-type object
 ## Architektur
 
 Prinzipiell kann die Anwendung mithilfe eines Browsers lokal ausgeführt werden, sodass kein Webserver benötigt wird.
-Optional ist die Verwendung eines Webservers für die Anwendung jedoch möglich. Hierfür kann beispielsweise ein einfacher Apache Server ohne serverseitige Logik aufgesetzt werden.
+Optional ist die Verwendung eines Webservers für die Anwendung jedoch möglich, insbesondere für den Chrome-Browser ist dies notwendig, da Chrome keine lokalen Dateien lädt. Hierfür kann beispielsweise ein reiner Apache Server ohne zusätzliche Logik aufgesetzt werden. Es gibt keine Versionseinschränkungen für den Apache-Webserver.
 Die Quelldateien der Anwendung müssen anschließend auf den Webserver hochgeladen werden, sodass diese später über die jeweilige Server-URL referenziert werden können.
 Mithilfe des Browsers als Client werden die Ressourcen letztlich abgerufen.
 
 ## Systemvoraussetzungen
 
-Die Anwendung läuft im Wesentlichen ohne Probleme unter den verbreitetsten Browsern Firefox, Chrome, Safari und Edge.
-Lediglich im Browser Chrome sollte das Feature `Overscroll history navigation` in den Entwickler-Einstellungen, einsehbar unter `chrome://flags/`, deaktiviert werden.
-Dies verhindert ein unerwünschtes Zurücknavigieren zur Startseite nach einer horizontalen Wischgeste (mehr dazu in der Bedienungsanleitung, wo es um die Interaktionsmöglichkeiten der Anwendung geht).
+Die Anwendung läuft im Wesentlichen ohne Probleme unter den verbreitetsten Browsern Firefox, Chrome, Safari und Edge. Im Browser Chrome sollte das Feature `Overscroll history navigation` in den Entwickler-Einstellungen, einsehbar unter `chrome://flags/`, deaktiviert werden.
+Dies verhindert ein unerwünschtes Zurücknavigieren zur Startseite nach einer horizontalen Wischgeste (mehr dazu in der Bedienungsanleitung, wo es um die Interaktionsmöglichkeiten der Anwendung geht). 
+Sollten andere Browser später ebenfalls Edgw-Swype Gesten unterstützen, welche ein Verlassen der Anwendung ermöglichen, sollten diese ebenfalls im jeweiligen Browser deaktiviert werden.
 
 Des Weiteren ist für die Anwendung kein spezielles Betriebssystem notwendig.
 Für die verwendeten Technologien und Frameworks müssen von der Seite des Nutzers aus keine gesonderten Installationen durchgeführt werden, da bereits alle nötigen Dateien mitgeliefert werden.
@@ -159,8 +159,8 @@ Unter anderem wird die JavaScript-Bibliothek jQuery 3.2.1, die Erweiterung jQuer
 Außerdem wird zusätzlich Bootstrap 3.3.7 für die UI-Gestaltung genutzt.
 
 Für eine optimale Darstellung der Inhalte wird ein 30 bis 36 Zoll großer Tabletop empfohlen, welches das Breitbildformat 16:9 unterstützt.
-Eine Full-HD-Bildschirmauflösung wird dabei vorausgesetzt.
-Mit einer geringeren User Experience ist die Anwendung zudem auch auf herkömmlichen PCs lauffähig.
+Eine Full-HD-Bildschirmauflösung wird dabei vorausgesetzt. Der Browser muss in den Vollbild-Modus versetzt werden. Die Anwendung ist auch auf anderen Geräten lauffähig und kann auch mit einem Zeigegerät bedient werden, allerdings ist die User-Experience in so einem Fall eingeschränkt, da der Bildaufbau nicht unbedingt optimal ist und oder durch geringere Rechenleistung die Wiedergabe nicht flüssig erscheint.
+
 
 ## Bedienungsanleitung
 
@@ -185,6 +185,10 @@ Je nachdem, wo sich der Slider während des Drag & Drop-Vorgangs befindet, werde
 
 ## Versionsverwaltung
 
+### Commit, auf dem diese Doku basiert
 TODO:
 - Dokumentation der Branches, Tags (welcher ist der finale Commit, entspricht der kompilierten Abgabe)?
-- Welche IDE/Entwicklungsumgebung zur Entwicklung verwendet? kurze Einrichtungsanleitung für Projekt (erste Schritte, falls mal jemand weiterentwickeln möchte)
+
+### Verwendete Entwicklungsumgebung
+
+Die Anwendung wurde vollständig in Notepad++ geschrieben. Debugging und Anpassungen erfolgten über die Entwickler-Tools von Chrome. Es kann jede beliebige IDE zur Entwicklung eingesetzt werden, welche HTML, CSS und JS unterstützt.
