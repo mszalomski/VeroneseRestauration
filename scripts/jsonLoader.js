@@ -162,14 +162,25 @@ function resizeTiles(){
 				var diffDays = Math.round((dateAvg-dataAvg)/(1000*60*60*24));
 
 			var factor = 1 - (diffDays / 720);
-			var height = factor * 200;
-			var heightString = height.toString() + 'px';
+			var heightString = (factor * 200).toString() +'px';			
 
 			var id = '#tile_' +((i+1).toString());
-	
+			
+			var opacityString = '1';
+			if((i+1) > currentSlide + 3 || (i + 1) < currentSlide - 3)
+				opacityString = '0';
+
+			var grayFactor = (100 -(factor * 100));
+			if((i+1) != currentSlide)
+				grayFactor = ((100 -(factor * 100))*4)
+			
+			var grayString = grayFactor.toString() +'%';
+
 			$(id).css({
-				opacity: '1',
+				opacity: opacityString,
 				height: heightString,
+				"-webkit-filter": "grayscale("+grayString+")",
+				"filter": "grayscale("+grayString+")"
 			});
 		}
 	);
@@ -193,9 +204,12 @@ function hideTiles(){
 function assignTiles(){
 	var tilesNr = $("#tiles img").length;
 	var width = 100 / tilesNr;
+	var n = Math.floor(width);
+	var precision = width%n;
+
 	$("#tiles img").each(function(index, element) {
-		var left = index * width;
-		$(element).css("width", width +'%');
+		var left = index * (n + precision);
+		$(element).css("width", n +'%');
 		$(element).css("left", left +'%');
 	});
 }
