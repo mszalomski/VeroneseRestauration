@@ -118,6 +118,7 @@ function prepareCarousel() {
 	overviewContainer = document.createElement("div");
 	overviewContainer.id = "overview_small";
 	overviewContainer.onclick = toggleOverview;
+	overviewContainer.addEventListener("touchstart", touchHandleStart, false);
 	overviewCloseBtn = document.createElement("img");
 	overviewCloseBtn.src = "closeButton.png";
 	overviewCloseBtn.id = "closeButton";
