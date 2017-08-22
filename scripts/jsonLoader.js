@@ -162,6 +162,8 @@ function resizeTiles(){
 				var diffDays = Math.round((dateAvg-dataAvg)/(1000*60*60*24));
 
 			var factor = 1 - (diffDays / 720);
+			factor = factor * factor * factor;
+			
 			var heightString = (factor * 200).toString() +'px';			
 
 			var id = '#tile_' +((i+1).toString());
