@@ -32,4 +32,15 @@
 		</td>
 </div></a>
 </body>
+<script type="text/javascript">
+	document.body.addEventListener('contextmenu', function(ev) {
+		ev.preventDefault();
+		return false;}, false);
+	document.body.addEventListener("touchstart", touchHandleStart, false);
+	document.body.addEventListener("touchmove", touchHandleStart, false);
+	
+	function touchHandleStart(e) {
+		if(e.touches.length > 1) event.preventDefault();
+	}
+</script>
 </html>
