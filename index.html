@@ -40,7 +40,9 @@
 	document.body.addEventListener("touchmove", touchHandleStart, false);
 	
 	function touchHandleStart(e) {
-		if(e.touches.length > 1) event.preventDefault();
+		console.log(e.defaultPrevented);
+		if(e.touches.length > 1) e.preventDefault();
+		return false;
 	}
 </script>
 </html>

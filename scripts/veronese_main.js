@@ -427,14 +427,14 @@ var offset = {x:0,y:0};
 var ignoreFurtherTouchInput = false; //as long as css scrolls website, ignore all touch inputs, because they are incorrect during animation
 
 function touchHandleStart(e) {
-	if(e.touches.length > 1)event.preventDefault(); //prevent any kind of multi-touch gesture (pinch, swype,...)
+	if(e.touches.length > 1) e.preventDefault(); //prevent any kind of multi-touch gesture (pinch, swype,...)
 	start.x = e.touches[0].pageX;
 	start.y = e.touches[0].pageY;
 	window.clearTimeout(timeoutHandle);
 }
 function touchHandleMove(e) {
 	if (ignoreFurtherTouchInput) return;
-	if(e.touches.length > 1)event.preventDefault(); //prevent any kind of multi-touch gesture (pinch, swype,...)
+	if(e.touches.length > 1) e.preventDefault(); //prevent any kind of multi-touch gesture (pinch, swype,...)
 	offset.x = start.x - e.touches[0].pageX;
 	offset.y = start.y - e.touches[0].pageY;
 	horizontalMovement = -offset.x;
