@@ -33,14 +33,14 @@
 </div></a>
 </body>
 <script type="text/javascript">
-	document.body.addEventListener('contextmenu', function(ev) {
+	var mainElement = document.getElementById("maindiv");
+	mainElement.addEventListener('contextmenu', function(ev) {
 		ev.preventDefault();
 		return false;}, false);
-	document.body.addEventListener("touchstart", touchHandleStart, false);
-	document.body.addEventListener("touchmove", touchHandleStart, false);
+	mainElement.addEventListener("touchstart", touchHandleStart, false);
+	mainElement.addEventListener("touchmove", touchHandleStart, false);
 	
 	function touchHandleStart(e) {
-		console.log(e.defaultPrevented);
 		if(e.touches.length > 1) e.preventDefault();
 		return false;
 	}
