@@ -186,8 +186,11 @@ Je nachdem, wo sich der Slider während des Drag & Drop-Vorgangs befindet, werde
 ## Versionsverwaltung
 
 ### Commit, auf dem diese Doku basiert
-TODO:
-- Dokumentation der Branches, Tags (welcher ist der finale Commit, entspricht der kompilierten Abgabe)?
+
+8e0264afddf4206574b35711aa72ecd25a1641d9
+Stand vom 22.08.2017, Master-Branch. 
+Weitere Branches existieren nicht, da für diese Entwicklung ein gemeinsamer Branch wesentlich effizienter war.
+
 
 ### Verwendete Entwicklungsumgebung
 
